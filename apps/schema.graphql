@@ -4,9 +4,7 @@ schema {
   subscription: subscription_root
 }
 
-"""
-expression to compare columns of type boolean. All fields are combined with logical 'AND'.
-"""
+# expression to compare columns of type boolean. All fields are combined with logical 'AND'.
 input boolean_comparison_exp {
   _eq: Boolean
   _gt: Boolean
@@ -19,34 +17,43 @@ input boolean_comparison_exp {
   _nin: [Boolean]
 }
 
-"""conflict action"""
+# conflict action
 enum conflict_action {
-  """ignore the insert on this row"""
+  # ignore the insert on this row
   ignore
 
-  """update the row with the given values"""
+  # update the row with the given values
   update
 }
 
-"""
-columns and relationships of "educations"
-"""
+scalar date
+
+# expression to compare columns of type date. All fields are combined with logical 'AND'.
+input date_comparison_exp {
+  _eq: date
+  _gt: date
+  _gte: date
+  _in: [date]
+  _is_null: Boolean
+  _lt: date
+  _lte: date
+  _neq: date
+  _nin: [date]
+}
+
+# columns and relationships of "educations"
 type educations {
   id: Int!
   name: String!
 }
 
-"""
-aggregated selection of "educations"
-"""
+# aggregated selection of "educations"
 type educations_aggregate {
   aggregate: educations_aggregate_fields
   nodes: [educations!]!
 }
 
-"""
-aggregate fields of "educations"
-"""
+# aggregate fields of "educations"
 type educations_aggregate_fields {
   avg: educations_avg_fields
   count(columns: [educations_select_column!], distinct: Boolean): Int
@@ -61,22 +68,38 @@ type educations_aggregate_fields {
   variance: educations_variance_fields
 }
 
-"""
-input type for inserting array relation for remote table "educations"
-"""
+# order by aggregate values of table "educations"
+input educations_aggregate_order_by {
+  avg: educations_avg_order_by
+  count: order_by
+  max: educations_max_order_by
+  min: educations_min_order_by
+  stddev: educations_stddev_order_by
+  stddev_pop: educations_stddev_pop_order_by
+  stddev_samp: educations_stddev_samp_order_by
+  sum: educations_sum_order_by
+  var_pop: educations_var_pop_order_by
+  var_samp: educations_var_samp_order_by
+  variance: educations_variance_order_by
+}
+
+# input type for inserting array relation for remote table "educations"
 input educations_arr_rel_insert_input {
   data: [educations_insert_input!]!
   on_conflict: educations_on_conflict
 }
 
-"""aggregate avg on columns"""
+# aggregate avg on columns
 type educations_avg_fields {
   id: Float
 }
 
-"""
-Boolean expression to filter rows from the table "educations". All fields are combined with a logical 'AND'.
-"""
+# order by avg() on columns of table "educations"
+input educations_avg_order_by {
+  id: order_by
+}
+
+# Boolean expression to filter rows from the table "educations". All fields are combined with a logical 'AND'.
 input educations_bool_exp {
   _and: [educations_bool_exp]
   _not: educations_bool_exp
@@ -85,146 +108,169 @@ input educations_bool_exp {
   name: text_comparison_exp
 }
 
-"""
-unique or primary key constraints on table "educations"
-"""
+# unique or primary key constraints on table "educations"
 enum educations_constraint {
-  """unique or primary key constraint"""
+  # unique or primary key constraint
   educations_pkey
 }
 
-"""
-input type for incrementing integer columne in table "educations"
-"""
+# input type for incrementing integer columne in table "educations"
 input educations_inc_input {
   id: Int
 }
 
-"""
-input type for inserting data into table "educations"
-"""
+# input type for inserting data into table "educations"
 input educations_insert_input {
   id: Int
   name: String
 }
 
-"""aggregate max on columns"""
+# aggregate max on columns
 type educations_max_fields {
   id: Int
   name: String
 }
 
-"""aggregate min on columns"""
+# order by max() on columns of table "educations"
+input educations_max_order_by {
+  id: order_by
+  name: order_by
+}
+
+# aggregate min on columns
 type educations_min_fields {
   id: Int
   name: String
 }
 
-"""
-response of any mutation on the table "educations"
-"""
+# order by min() on columns of table "educations"
+input educations_min_order_by {
+  id: order_by
+  name: order_by
+}
+
+# response of any mutation on the table "educations"
 type educations_mutation_response {
-  """number of affected rows by the mutation"""
+  # number of affected rows by the mutation
   affected_rows: Int!
 
-  """data of the affected rows by the mutation"""
+  # data of the affected rows by the mutation
   returning: [educations!]!
 }
 
-"""
-input type for inserting object relation for remote table "educations"
-"""
+# input type for inserting object relation for remote table "educations"
 input educations_obj_rel_insert_input {
   data: educations_insert_input!
   on_conflict: educations_on_conflict
 }
 
-"""
-on conflict condition type for table "educations"
-"""
+# on conflict condition type for table "educations"
 input educations_on_conflict {
-  """action when conflict occurs (deprecated)"""
-  action: conflict_action
   constraint: educations_constraint!
-  update_columns: [educations_update_column!]
+  update_columns: [educations_update_column!]!
 }
 
-"""
-ordering options when selecting data from "educations"
-"""
+# ordering options when selecting data from "educations"
 input educations_order_by {
   id: order_by
   name: order_by
 }
 
-"""
-select columns of table "educations"
-"""
+# select columns of table "educations"
 enum educations_select_column {
-  """column name"""
+  # column name
   id
 
-  """column name"""
+  # column name
   name
 }
 
-"""
-input type for updating data in table "educations"
-"""
+# input type for updating data in table "educations"
 input educations_set_input {
   id: Int
   name: String
 }
 
-"""aggregate stddev on columns"""
+# aggregate stddev on columns
 type educations_stddev_fields {
   id: Float
 }
 
-"""aggregate stddev_pop on columns"""
+# order by stddev() on columns of table "educations"
+input educations_stddev_order_by {
+  id: order_by
+}
+
+# aggregate stddev_pop on columns
 type educations_stddev_pop_fields {
   id: Float
 }
 
-"""aggregate stddev_samp on columns"""
+# order by stddev_pop() on columns of table "educations"
+input educations_stddev_pop_order_by {
+  id: order_by
+}
+
+# aggregate stddev_samp on columns
 type educations_stddev_samp_fields {
   id: Float
 }
 
-"""aggregate sum on columns"""
+# order by stddev_samp() on columns of table "educations"
+input educations_stddev_samp_order_by {
+  id: order_by
+}
+
+# aggregate sum on columns
 type educations_sum_fields {
   id: Int
 }
 
-"""
-update columns of table "educations"
-"""
+# order by sum() on columns of table "educations"
+input educations_sum_order_by {
+  id: order_by
+}
+
+# update columns of table "educations"
 enum educations_update_column {
-  """column name"""
+  # column name
   id
 
-  """column name"""
+  # column name
   name
 }
 
-"""aggregate var_pop on columns"""
+# aggregate var_pop on columns
 type educations_var_pop_fields {
   id: Float
 }
 
-"""aggregate var_samp on columns"""
+# order by var_pop() on columns of table "educations"
+input educations_var_pop_order_by {
+  id: order_by
+}
+
+# aggregate var_samp on columns
 type educations_var_samp_fields {
   id: Float
 }
 
-"""aggregate variance on columns"""
+# order by var_samp() on columns of table "educations"
+input educations_var_samp_order_by {
+  id: order_by
+}
+
+# aggregate variance on columns
 type educations_variance_fields {
   id: Float
 }
 
-"""
-expression to compare columns of type integer. All fields are combined with logical 'AND'.
-"""
+# order by variance() on columns of table "educations"
+input educations_variance_order_by {
+  id: order_by
+}
+
+# expression to compare columns of type integer. All fields are combined with logical 'AND'.
 input integer_comparison_exp {
   _eq: Int
   _gt: Int
@@ -237,795 +283,1230 @@ input integer_comparison_exp {
   _nin: [Int]
 }
 
-scalar json
-
-"""
-expression to compare columns of type json. All fields are combined with logical 'AND'.
-"""
-input json_comparison_exp {
-  _eq: json
-  _gt: json
-  _gte: json
-  _in: [json]
-  _is_null: Boolean
-  _lt: json
-  _lte: json
-  _neq: json
-  _nin: [json]
-}
-
-"""mutation root"""
+# mutation root
 type mutation_root {
-  """
-  delete data from the table: "educations"
-  """
+  # delete data from the table: "educations"
   delete_educations(
-    """filter the rows which have to be deleted"""
+    # filter the rows which have to be deleted
     where: educations_bool_exp!
   ): educations_mutation_response
 
-  """
-  delete data from the table: "posts"
-  """
-  delete_posts(
-    """filter the rows which have to be deleted"""
-    where: posts_bool_exp!
-  ): posts_mutation_response
+  # delete data from the table: "occupations"
+  delete_occupations(
+    # filter the rows which have to be deleted
+    where: occupations_bool_exp!
+  ): occupations_mutation_response
 
-  """
-  delete data from the table: "user_approval_requests"
-  """
-  delete_user_approval_requests(
-    """filter the rows which have to be deleted"""
-    where: user_approval_requests_bool_exp!
-  ): user_approval_requests_mutation_response
+  # delete data from the table: "relations"
+  delete_relations(
+    # filter the rows which have to be deleted
+    where: relations_bool_exp!
+  ): relations_mutation_response
 
-  """
-  delete data from the table: "users"
-  """
+  # delete data from the table: "user_educations"
+  delete_user_educations(
+    # filter the rows which have to be deleted
+    where: user_educations_bool_exp!
+  ): user_educations_mutation_response
+
+  # delete data from the table: "user_families"
+  delete_user_families(
+    # filter the rows which have to be deleted
+    where: user_families_bool_exp!
+  ): user_families_mutation_response
+
+  # delete data from the table: "user_occupations"
+  delete_user_occupations(
+    # filter the rows which have to be deleted
+    where: user_occupations_bool_exp!
+  ): user_occupations_mutation_response
+
+  # delete data from the table: "users"
   delete_users(
-    """filter the rows which have to be deleted"""
+    # filter the rows which have to be deleted
     where: users_bool_exp!
   ): users_mutation_response
 
-  """
-  insert data into the table: "educations"
-  """
+  # insert data into the table: "educations"
   insert_educations(
-    """the rows to be inserted"""
+    # the rows to be inserted
     objects: [educations_insert_input!]!
 
-    """on conflict condition"""
+    # on conflict condition
     on_conflict: educations_on_conflict
   ): educations_mutation_response
 
-  """
-  insert data into the table: "posts"
-  """
-  insert_posts(
-    """the rows to be inserted"""
-    objects: [posts_insert_input!]!
+  # insert data into the table: "occupations"
+  insert_occupations(
+    # the rows to be inserted
+    objects: [occupations_insert_input!]!
 
-    """on conflict condition"""
-    on_conflict: posts_on_conflict
-  ): posts_mutation_response
+    # on conflict condition
+    on_conflict: occupations_on_conflict
+  ): occupations_mutation_response
 
-  """
-  insert data into the table: "user_approval_requests"
-  """
-  insert_user_approval_requests(
-    """the rows to be inserted"""
-    objects: [user_approval_requests_insert_input!]!
+  # insert data into the table: "relations"
+  insert_relations(
+    # the rows to be inserted
+    objects: [relations_insert_input!]!
 
-    """on conflict condition"""
-    on_conflict: user_approval_requests_on_conflict
-  ): user_approval_requests_mutation_response
+    # on conflict condition
+    on_conflict: relations_on_conflict
+  ): relations_mutation_response
 
-  """
-  insert data into the table: "users"
-  """
+  # insert data into the table: "user_educations"
+  insert_user_educations(
+    # the rows to be inserted
+    objects: [user_educations_insert_input!]!
+
+    # on conflict condition
+    on_conflict: user_educations_on_conflict
+  ): user_educations_mutation_response
+
+  # insert data into the table: "user_families"
+  insert_user_families(
+    # the rows to be inserted
+    objects: [user_families_insert_input!]!
+
+    # on conflict condition
+    on_conflict: user_families_on_conflict
+  ): user_families_mutation_response
+
+  # insert data into the table: "user_occupations"
+  insert_user_occupations(
+    # the rows to be inserted
+    objects: [user_occupations_insert_input!]!
+
+    # on conflict condition
+    on_conflict: user_occupations_on_conflict
+  ): user_occupations_mutation_response
+
+  # insert data into the table: "users"
   insert_users(
-    """the rows to be inserted"""
+    # the rows to be inserted
     objects: [users_insert_input!]!
 
-    """on conflict condition"""
+    # on conflict condition
     on_conflict: users_on_conflict
   ): users_mutation_response
 
-  """
-  update data of the table: "educations"
-  """
+  # update data of the table: "educations"
   update_educations(
-    """
-    increments the integer columns with given value of the filtered values
-    """
+    # increments the integer columns with given value of the filtered values
     _inc: educations_inc_input
 
-    """sets the columns of the filtered rows to the given values"""
+    # sets the columns of the filtered rows to the given values
     _set: educations_set_input
 
-    """filter the rows which have to be updated"""
+    # filter the rows which have to be updated
     where: educations_bool_exp!
   ): educations_mutation_response
 
-  """
-  update data of the table: "posts"
-  """
-  update_posts(
-    """
-    increments the integer columns with given value of the filtered values
-    """
-    _inc: posts_inc_input
+  # update data of the table: "occupations"
+  update_occupations(
+    # increments the integer columns with given value of the filtered values
+    _inc: occupations_inc_input
 
-    """sets the columns of the filtered rows to the given values"""
-    _set: posts_set_input
+    # sets the columns of the filtered rows to the given values
+    _set: occupations_set_input
 
-    """filter the rows which have to be updated"""
-    where: posts_bool_exp!
-  ): posts_mutation_response
+    # filter the rows which have to be updated
+    where: occupations_bool_exp!
+  ): occupations_mutation_response
 
-  """
-  update data of the table: "user_approval_requests"
-  """
-  update_user_approval_requests(
-    """sets the columns of the filtered rows to the given values"""
-    _set: user_approval_requests_set_input
+  # update data of the table: "relations"
+  update_relations(
+    # increments the integer columns with given value of the filtered values
+    _inc: relations_inc_input
 
-    """filter the rows which have to be updated"""
-    where: user_approval_requests_bool_exp!
-  ): user_approval_requests_mutation_response
+    # sets the columns of the filtered rows to the given values
+    _set: relations_set_input
 
-  """
-  update data of the table: "users"
-  """
+    # filter the rows which have to be updated
+    where: relations_bool_exp!
+  ): relations_mutation_response
+
+  # update data of the table: "user_educations"
+  update_user_educations(
+    # increments the integer columns with given value of the filtered values
+    _inc: user_educations_inc_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: user_educations_set_input
+
+    # filter the rows which have to be updated
+    where: user_educations_bool_exp!
+  ): user_educations_mutation_response
+
+  # update data of the table: "user_families"
+  update_user_families(
+    # increments the integer columns with given value of the filtered values
+    _inc: user_families_inc_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: user_families_set_input
+
+    # filter the rows which have to be updated
+    where: user_families_bool_exp!
+  ): user_families_mutation_response
+
+  # update data of the table: "user_occupations"
+  update_user_occupations(
+    # increments the integer columns with given value of the filtered values
+    _inc: user_occupations_inc_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: user_occupations_set_input
+
+    # filter the rows which have to be updated
+    where: user_occupations_bool_exp!
+  ): user_occupations_mutation_response
+
+  # update data of the table: "users"
   update_users(
-    """sets the columns of the filtered rows to the given values"""
+    # increments the integer columns with given value of the filtered values
+    _inc: users_inc_input
+
+    # sets the columns of the filtered rows to the given values
     _set: users_set_input
 
-    """filter the rows which have to be updated"""
+    # filter the rows which have to be updated
     where: users_bool_exp!
   ): users_mutation_response
 }
 
-"""column ordering options"""
+# columns and relationships of "occupations"
+type occupations {
+  id: Int!
+  name: String!
+}
+
+# aggregated selection of "occupations"
+type occupations_aggregate {
+  aggregate: occupations_aggregate_fields
+  nodes: [occupations!]!
+}
+
+# aggregate fields of "occupations"
+type occupations_aggregate_fields {
+  avg: occupations_avg_fields
+  count(columns: [occupations_select_column!], distinct: Boolean): Int
+  max: occupations_max_fields
+  min: occupations_min_fields
+  stddev: occupations_stddev_fields
+  stddev_pop: occupations_stddev_pop_fields
+  stddev_samp: occupations_stddev_samp_fields
+  sum: occupations_sum_fields
+  var_pop: occupations_var_pop_fields
+  var_samp: occupations_var_samp_fields
+  variance: occupations_variance_fields
+}
+
+# order by aggregate values of table "occupations"
+input occupations_aggregate_order_by {
+  avg: occupations_avg_order_by
+  count: order_by
+  max: occupations_max_order_by
+  min: occupations_min_order_by
+  stddev: occupations_stddev_order_by
+  stddev_pop: occupations_stddev_pop_order_by
+  stddev_samp: occupations_stddev_samp_order_by
+  sum: occupations_sum_order_by
+  var_pop: occupations_var_pop_order_by
+  var_samp: occupations_var_samp_order_by
+  variance: occupations_variance_order_by
+}
+
+# input type for inserting array relation for remote table "occupations"
+input occupations_arr_rel_insert_input {
+  data: [occupations_insert_input!]!
+  on_conflict: occupations_on_conflict
+}
+
+# aggregate avg on columns
+type occupations_avg_fields {
+  id: Float
+}
+
+# order by avg() on columns of table "occupations"
+input occupations_avg_order_by {
+  id: order_by
+}
+
+# Boolean expression to filter rows from the table "occupations". All fields are combined with a logical 'AND'.
+input occupations_bool_exp {
+  _and: [occupations_bool_exp]
+  _not: occupations_bool_exp
+  _or: [occupations_bool_exp]
+  id: integer_comparison_exp
+  name: text_comparison_exp
+}
+
+# unique or primary key constraints on table "occupations"
+enum occupations_constraint {
+  # unique or primary key constraint
+  occupations_pkey
+}
+
+# input type for incrementing integer columne in table "occupations"
+input occupations_inc_input {
+  id: Int
+}
+
+# input type for inserting data into table "occupations"
+input occupations_insert_input {
+  id: Int
+  name: String
+}
+
+# aggregate max on columns
+type occupations_max_fields {
+  id: Int
+  name: String
+}
+
+# order by max() on columns of table "occupations"
+input occupations_max_order_by {
+  id: order_by
+  name: order_by
+}
+
+# aggregate min on columns
+type occupations_min_fields {
+  id: Int
+  name: String
+}
+
+# order by min() on columns of table "occupations"
+input occupations_min_order_by {
+  id: order_by
+  name: order_by
+}
+
+# response of any mutation on the table "occupations"
+type occupations_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [occupations!]!
+}
+
+# input type for inserting object relation for remote table "occupations"
+input occupations_obj_rel_insert_input {
+  data: occupations_insert_input!
+  on_conflict: occupations_on_conflict
+}
+
+# on conflict condition type for table "occupations"
+input occupations_on_conflict {
+  constraint: occupations_constraint!
+  update_columns: [occupations_update_column!]!
+}
+
+# ordering options when selecting data from "occupations"
+input occupations_order_by {
+  id: order_by
+  name: order_by
+}
+
+# select columns of table "occupations"
+enum occupations_select_column {
+  # column name
+  id
+
+  # column name
+  name
+}
+
+# input type for updating data in table "occupations"
+input occupations_set_input {
+  id: Int
+  name: String
+}
+
+# aggregate stddev on columns
+type occupations_stddev_fields {
+  id: Float
+}
+
+# order by stddev() on columns of table "occupations"
+input occupations_stddev_order_by {
+  id: order_by
+}
+
+# aggregate stddev_pop on columns
+type occupations_stddev_pop_fields {
+  id: Float
+}
+
+# order by stddev_pop() on columns of table "occupations"
+input occupations_stddev_pop_order_by {
+  id: order_by
+}
+
+# aggregate stddev_samp on columns
+type occupations_stddev_samp_fields {
+  id: Float
+}
+
+# order by stddev_samp() on columns of table "occupations"
+input occupations_stddev_samp_order_by {
+  id: order_by
+}
+
+# aggregate sum on columns
+type occupations_sum_fields {
+  id: Int
+}
+
+# order by sum() on columns of table "occupations"
+input occupations_sum_order_by {
+  id: order_by
+}
+
+# update columns of table "occupations"
+enum occupations_update_column {
+  # column name
+  id
+
+  # column name
+  name
+}
+
+# aggregate var_pop on columns
+type occupations_var_pop_fields {
+  id: Float
+}
+
+# order by var_pop() on columns of table "occupations"
+input occupations_var_pop_order_by {
+  id: order_by
+}
+
+# aggregate var_samp on columns
+type occupations_var_samp_fields {
+  id: Float
+}
+
+# order by var_samp() on columns of table "occupations"
+input occupations_var_samp_order_by {
+  id: order_by
+}
+
+# aggregate variance on columns
+type occupations_variance_fields {
+  id: Float
+}
+
+# order by variance() on columns of table "occupations"
+input occupations_variance_order_by {
+  id: order_by
+}
+
+# column ordering options
 enum order_by {
-  """in the ascending order, nulls last"""
+  # in the ascending order, nulls last
   asc
 
-  """in the ascending order, nulls first"""
+  # in the ascending order, nulls first
   asc_nulls_first
 
-  """in the ascending order, nulls last"""
+  # in the ascending order, nulls last
   asc_nulls_last
 
-  """in the descending order, nulls first"""
+  # in the descending order, nulls first
   desc
 
-  """in the descending order, nulls first"""
+  # in the descending order, nulls first
   desc_nulls_first
 
-  """in the descending order, nulls last"""
+  # in the descending order, nulls last
   desc_nulls_last
 }
 
-"""
-columns and relationships of "posts"
-"""
-type posts {
-  created_on: timestamptz!
+# query root
+type query_root {
+  # fetch data from the table: "educations"
+  educations(
+    # distinct select on columns
+    distinct_on: [educations_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [educations_order_by!]
+
+    # filter the rows returned
+    where: educations_bool_exp
+  ): [educations!]!
+
+  # fetch aggregated fields from the table: "educations"
+  educations_aggregate(
+    # distinct select on columns
+    distinct_on: [educations_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [educations_order_by!]
+
+    # filter the rows returned
+    where: educations_bool_exp
+  ): educations_aggregate!
+
+  # fetch data from the table: "educations" using primary key columns
+  educations_by_pk(id: Int!): educations
+
+  # fetch data from the table: "occupations"
+  occupations(
+    # distinct select on columns
+    distinct_on: [occupations_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [occupations_order_by!]
+
+    # filter the rows returned
+    where: occupations_bool_exp
+  ): [occupations!]!
+
+  # fetch aggregated fields from the table: "occupations"
+  occupations_aggregate(
+    # distinct select on columns
+    distinct_on: [occupations_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [occupations_order_by!]
+
+    # filter the rows returned
+    where: occupations_bool_exp
+  ): occupations_aggregate!
+
+  # fetch data from the table: "occupations" using primary key columns
+  occupations_by_pk(id: Int!): occupations
+
+  # fetch data from the table: "relations"
+  relations(
+    # distinct select on columns
+    distinct_on: [relations_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [relations_order_by!]
+
+    # filter the rows returned
+    where: relations_bool_exp
+  ): [relations!]!
+
+  # fetch aggregated fields from the table: "relations"
+  relations_aggregate(
+    # distinct select on columns
+    distinct_on: [relations_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [relations_order_by!]
+
+    # filter the rows returned
+    where: relations_bool_exp
+  ): relations_aggregate!
+
+  # fetch data from the table: "relations" using primary key columns
+  relations_by_pk(id: Int!): relations
+
+  # fetch data from the table: "user_educations"
+  user_educations(
+    # distinct select on columns
+    distinct_on: [user_educations_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [user_educations_order_by!]
+
+    # filter the rows returned
+    where: user_educations_bool_exp
+  ): [user_educations!]!
+
+  # fetch aggregated fields from the table: "user_educations"
+  user_educations_aggregate(
+    # distinct select on columns
+    distinct_on: [user_educations_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [user_educations_order_by!]
+
+    # filter the rows returned
+    where: user_educations_bool_exp
+  ): user_educations_aggregate!
+
+  # fetch data from the table: "user_educations" using primary key columns
+  user_educations_by_pk(id: Int!): user_educations
+
+  # fetch data from the table: "user_families"
+  user_families(
+    # distinct select on columns
+    distinct_on: [user_families_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [user_families_order_by!]
+
+    # filter the rows returned
+    where: user_families_bool_exp
+  ): [user_families!]!
+
+  # fetch aggregated fields from the table: "user_families"
+  user_families_aggregate(
+    # distinct select on columns
+    distinct_on: [user_families_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [user_families_order_by!]
+
+    # filter the rows returned
+    where: user_families_bool_exp
+  ): user_families_aggregate!
+
+  # fetch data from the table: "user_families" using primary key columns
+  user_families_by_pk(id: Int!): user_families
+
+  # fetch data from the table: "user_occupations"
+  user_occupations(
+    # distinct select on columns
+    distinct_on: [user_occupations_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [user_occupations_order_by!]
+
+    # filter the rows returned
+    where: user_occupations_bool_exp
+  ): [user_occupations!]!
+
+  # fetch aggregated fields from the table: "user_occupations"
+  user_occupations_aggregate(
+    # distinct select on columns
+    distinct_on: [user_occupations_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [user_occupations_order_by!]
+
+    # filter the rows returned
+    where: user_occupations_bool_exp
+  ): user_occupations_aggregate!
+
+  # fetch data from the table: "user_occupations" using primary key columns
+  user_occupations_by_pk(id: Int!): user_occupations
+
+  # fetch data from the table: "users"
+  users(
+    # distinct select on columns
+    distinct_on: [users_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [users_order_by!]
+
+    # filter the rows returned
+    where: users_bool_exp
+  ): [users!]!
+
+  # fetch aggregated fields from the table: "users"
+  users_aggregate(
+    # distinct select on columns
+    distinct_on: [users_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [users_order_by!]
+
+    # filter the rows returned
+    where: users_bool_exp
+  ): users_aggregate!
+
+  # fetch data from the table: "users" using primary key columns
+  users_by_pk(id: String!): users
+}
+
+# columns and relationships of "relations"
+type relations {
   id: Int!
-  images: json
-  text: String
-  updated_on: timestamptz!
-  url: json
-
-  """An object relationship"""
-  user: users!
-  user_id: String!
+  name: String!
 }
 
-"""
-aggregated selection of "posts"
-"""
-type posts_aggregate {
-  aggregate: posts_aggregate_fields
-  nodes: [posts!]!
+# aggregated selection of "relations"
+type relations_aggregate {
+  aggregate: relations_aggregate_fields
+  nodes: [relations!]!
 }
 
-"""
-aggregate fields of "posts"
-"""
-type posts_aggregate_fields {
-  avg: posts_avg_fields
-  count(columns: [posts_select_column!], distinct: Boolean): Int
-  max: posts_max_fields
-  min: posts_min_fields
-  stddev: posts_stddev_fields
-  stddev_pop: posts_stddev_pop_fields
-  stddev_samp: posts_stddev_samp_fields
-  sum: posts_sum_fields
-  var_pop: posts_var_pop_fields
-  var_samp: posts_var_samp_fields
-  variance: posts_variance_fields
+# aggregate fields of "relations"
+type relations_aggregate_fields {
+  avg: relations_avg_fields
+  count(columns: [relations_select_column!], distinct: Boolean): Int
+  max: relations_max_fields
+  min: relations_min_fields
+  stddev: relations_stddev_fields
+  stddev_pop: relations_stddev_pop_fields
+  stddev_samp: relations_stddev_samp_fields
+  sum: relations_sum_fields
+  var_pop: relations_var_pop_fields
+  var_samp: relations_var_samp_fields
+  variance: relations_variance_fields
 }
 
-"""
-input type for inserting array relation for remote table "posts"
-"""
-input posts_arr_rel_insert_input {
-  data: [posts_insert_input!]!
-  on_conflict: posts_on_conflict
+# order by aggregate values of table "relations"
+input relations_aggregate_order_by {
+  avg: relations_avg_order_by
+  count: order_by
+  max: relations_max_order_by
+  min: relations_min_order_by
+  stddev: relations_stddev_order_by
+  stddev_pop: relations_stddev_pop_order_by
+  stddev_samp: relations_stddev_samp_order_by
+  sum: relations_sum_order_by
+  var_pop: relations_var_pop_order_by
+  var_samp: relations_var_samp_order_by
+  variance: relations_variance_order_by
 }
 
-"""aggregate avg on columns"""
-type posts_avg_fields {
+# input type for inserting array relation for remote table "relations"
+input relations_arr_rel_insert_input {
+  data: [relations_insert_input!]!
+  on_conflict: relations_on_conflict
+}
+
+# aggregate avg on columns
+type relations_avg_fields {
   id: Float
 }
 
-"""
-Boolean expression to filter rows from the table "posts". All fields are combined with a logical 'AND'.
-"""
-input posts_bool_exp {
-  _and: [posts_bool_exp]
-  _not: posts_bool_exp
-  _or: [posts_bool_exp]
-  created_on: timestamptz_comparison_exp
+# order by avg() on columns of table "relations"
+input relations_avg_order_by {
+  id: order_by
+}
+
+# Boolean expression to filter rows from the table "relations". All fields are combined with a logical 'AND'.
+input relations_bool_exp {
+  _and: [relations_bool_exp]
+  _not: relations_bool_exp
+  _or: [relations_bool_exp]
   id: integer_comparison_exp
-  images: json_comparison_exp
-  text: text_comparison_exp
-  updated_on: timestamptz_comparison_exp
-  url: json_comparison_exp
-  user: users_bool_exp
-  user_id: text_comparison_exp
+  name: text_comparison_exp
 }
 
-"""
-unique or primary key constraints on table "posts"
-"""
-enum posts_constraint {
-  """unique or primary key constraint"""
-  posts_pkey
+# unique or primary key constraints on table "relations"
+enum relations_constraint {
+  # unique or primary key constraint
+  relations_pkey
 }
 
-"""
-input type for incrementing integer columne in table "posts"
-"""
-input posts_inc_input {
+# input type for incrementing integer columne in table "relations"
+input relations_inc_input {
   id: Int
 }
 
-"""
-input type for inserting data into table "posts"
-"""
-input posts_insert_input {
-  created_on: timestamptz
+# input type for inserting data into table "relations"
+input relations_insert_input {
   id: Int
-  images: json
-  text: String
-  updated_on: timestamptz
-  url: json
-  user: users_obj_rel_insert_input
-  user_id: String
+  name: String
 }
 
-"""aggregate max on columns"""
-type posts_max_fields {
-  created_on: timestamptz
+# aggregate max on columns
+type relations_max_fields {
   id: Int
-  text: String
-  updated_on: timestamptz
-  user_id: String
+  name: String
 }
 
-"""aggregate min on columns"""
-type posts_min_fields {
-  created_on: timestamptz
-  id: Int
-  text: String
-  updated_on: timestamptz
-  user_id: String
+# order by max() on columns of table "relations"
+input relations_max_order_by {
+  id: order_by
+  name: order_by
 }
 
-"""
-response of any mutation on the table "posts"
-"""
-type posts_mutation_response {
-  """number of affected rows by the mutation"""
+# aggregate min on columns
+type relations_min_fields {
+  id: Int
+  name: String
+}
+
+# order by min() on columns of table "relations"
+input relations_min_order_by {
+  id: order_by
+  name: order_by
+}
+
+# response of any mutation on the table "relations"
+type relations_mutation_response {
+  # number of affected rows by the mutation
   affected_rows: Int!
 
-  """data of the affected rows by the mutation"""
-  returning: [posts!]!
+  # data of the affected rows by the mutation
+  returning: [relations!]!
 }
 
-"""
-input type for inserting object relation for remote table "posts"
-"""
-input posts_obj_rel_insert_input {
-  data: posts_insert_input!
-  on_conflict: posts_on_conflict
+# input type for inserting object relation for remote table "relations"
+input relations_obj_rel_insert_input {
+  data: relations_insert_input!
+  on_conflict: relations_on_conflict
 }
 
-"""
-on conflict condition type for table "posts"
-"""
-input posts_on_conflict {
-  """action when conflict occurs (deprecated)"""
-  action: conflict_action
-  constraint: posts_constraint!
-  update_columns: [posts_update_column!]
+# on conflict condition type for table "relations"
+input relations_on_conflict {
+  constraint: relations_constraint!
+  update_columns: [relations_update_column!]!
 }
 
-"""
-ordering options when selecting data from "posts"
-"""
-input posts_order_by {
-  created_on: order_by
+# ordering options when selecting data from "relations"
+input relations_order_by {
   id: order_by
-  images: order_by
-  text: order_by
-  updated_on: order_by
-  url: order_by
-  user: users_order_by
-  user_id: order_by
+  name: order_by
 }
 
-"""
-select columns of table "posts"
-"""
-enum posts_select_column {
-  """column name"""
-  created_on
-
-  """column name"""
+# select columns of table "relations"
+enum relations_select_column {
+  # column name
   id
 
-  """column name"""
-  images
-
-  """column name"""
-  text
-
-  """column name"""
-  updated_on
-
-  """column name"""
-  url
-
-  """column name"""
-  user_id
+  # column name
+  name
 }
 
-"""
-input type for updating data in table "posts"
-"""
-input posts_set_input {
-  created_on: timestamptz
+# input type for updating data in table "relations"
+input relations_set_input {
   id: Int
-  images: json
-  text: String
-  updated_on: timestamptz
-  url: json
-  user_id: String
+  name: String
 }
 
-"""aggregate stddev on columns"""
-type posts_stddev_fields {
+# aggregate stddev on columns
+type relations_stddev_fields {
   id: Float
 }
 
-"""aggregate stddev_pop on columns"""
-type posts_stddev_pop_fields {
+# order by stddev() on columns of table "relations"
+input relations_stddev_order_by {
+  id: order_by
+}
+
+# aggregate stddev_pop on columns
+type relations_stddev_pop_fields {
   id: Float
 }
 
-"""aggregate stddev_samp on columns"""
-type posts_stddev_samp_fields {
+# order by stddev_pop() on columns of table "relations"
+input relations_stddev_pop_order_by {
+  id: order_by
+}
+
+# aggregate stddev_samp on columns
+type relations_stddev_samp_fields {
   id: Float
 }
 
-"""aggregate sum on columns"""
-type posts_sum_fields {
+# order by stddev_samp() on columns of table "relations"
+input relations_stddev_samp_order_by {
+  id: order_by
+}
+
+# aggregate sum on columns
+type relations_sum_fields {
   id: Int
 }
 
-"""
-update columns of table "posts"
-"""
-enum posts_update_column {
-  """column name"""
-  created_on
+# order by sum() on columns of table "relations"
+input relations_sum_order_by {
+  id: order_by
+}
 
-  """column name"""
+# update columns of table "relations"
+enum relations_update_column {
+  # column name
   id
 
-  """column name"""
-  images
-
-  """column name"""
-  text
-
-  """column name"""
-  updated_on
-
-  """column name"""
-  url
-
-  """column name"""
-  user_id
+  # column name
+  name
 }
 
-"""aggregate var_pop on columns"""
-type posts_var_pop_fields {
+# aggregate var_pop on columns
+type relations_var_pop_fields {
   id: Float
 }
 
-"""aggregate var_samp on columns"""
-type posts_var_samp_fields {
+# order by var_pop() on columns of table "relations"
+input relations_var_pop_order_by {
+  id: order_by
+}
+
+# aggregate var_samp on columns
+type relations_var_samp_fields {
   id: Float
 }
 
-"""aggregate variance on columns"""
-type posts_variance_fields {
+# order by var_samp() on columns of table "relations"
+input relations_var_samp_order_by {
+  id: order_by
+}
+
+# aggregate variance on columns
+type relations_variance_fields {
   id: Float
 }
 
-"""query root"""
-type query_root {
-  """
-  fetch data from the table: "educations"
-  """
-  educations(
-    """distinct select on columns"""
-    distinct_on: [educations_select_column!]
-
-    """limit the nuber of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [educations_order_by!]
-
-    """filter the rows returned"""
-    where: educations_bool_exp
-  ): [educations!]!
-
-  """
-  fetch aggregated fields from the table: "educations"
-  """
-  educations_aggregate(
-    """distinct select on columns"""
-    distinct_on: [educations_select_column!]
-
-    """limit the nuber of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [educations_order_by!]
-
-    """filter the rows returned"""
-    where: educations_bool_exp
-  ): educations_aggregate!
-
-  """fetch data from the table: "educations" using primary key columns"""
-  educations_by_pk(id: Int!): educations
-
-  """
-  fetch data from the table: "posts"
-  """
-  posts(
-    """distinct select on columns"""
-    distinct_on: [posts_select_column!]
-
-    """limit the nuber of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [posts_order_by!]
-
-    """filter the rows returned"""
-    where: posts_bool_exp
-  ): [posts!]!
-
-  """
-  fetch aggregated fields from the table: "posts"
-  """
-  posts_aggregate(
-    """distinct select on columns"""
-    distinct_on: [posts_select_column!]
-
-    """limit the nuber of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [posts_order_by!]
-
-    """filter the rows returned"""
-    where: posts_bool_exp
-  ): posts_aggregate!
-
-  """fetch data from the table: "posts" using primary key columns"""
-  posts_by_pk(id: Int!): posts
-
-  """
-  fetch data from the table: "user_approval_requests"
-  """
-  user_approval_requests(
-    """distinct select on columns"""
-    distinct_on: [user_approval_requests_select_column!]
-
-    """limit the nuber of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [user_approval_requests_order_by!]
-
-    """filter the rows returned"""
-    where: user_approval_requests_bool_exp
-  ): [user_approval_requests!]!
-
-  """
-  fetch aggregated fields from the table: "user_approval_requests"
-  """
-  user_approval_requests_aggregate(
-    """distinct select on columns"""
-    distinct_on: [user_approval_requests_select_column!]
-
-    """limit the nuber of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [user_approval_requests_order_by!]
-
-    """filter the rows returned"""
-    where: user_approval_requests_bool_exp
-  ): user_approval_requests_aggregate!
-
-  """
-  fetch data from the table: "user_approval_requests" using primary key columns
-  """
-  user_approval_requests_by_pk(approved_user_id: String!, user_id: String!): user_approval_requests
-
-  """
-  fetch data from the table: "users"
-  """
-  users(
-    """distinct select on columns"""
-    distinct_on: [users_select_column!]
-
-    """limit the nuber of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [users_order_by!]
-
-    """filter the rows returned"""
-    where: users_bool_exp
-  ): [users!]!
-
-  """
-  fetch aggregated fields from the table: "users"
-  """
-  users_aggregate(
-    """distinct select on columns"""
-    distinct_on: [users_select_column!]
-
-    """limit the nuber of rows returned"""
-    limit: Int
-
-    """skip the first n rows. Use only with order_by"""
-    offset: Int
-
-    """sort the rows by one or more columns"""
-    order_by: [users_order_by!]
-
-    """filter the rows returned"""
-    where: users_bool_exp
-  ): users_aggregate!
-
-  """fetch data from the table: "users" using primary key columns"""
-  users_by_pk(id: String!): users
+# order by variance() on columns of table "relations"
+input relations_variance_order_by {
+  id: order_by
 }
 
-"""subscription root"""
+# subscription root
 type subscription_root {
-  """
-  fetch data from the table: "educations"
-  """
+  # fetch data from the table: "educations"
   educations(
-    """distinct select on columns"""
+    # distinct select on columns
     distinct_on: [educations_select_column!]
 
-    """limit the nuber of rows returned"""
+    # limit the nuber of rows returned
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    # skip the first n rows. Use only with order_by
     offset: Int
 
-    """sort the rows by one or more columns"""
+    # sort the rows by one or more columns
     order_by: [educations_order_by!]
 
-    """filter the rows returned"""
+    # filter the rows returned
     where: educations_bool_exp
   ): [educations!]!
 
-  """
-  fetch aggregated fields from the table: "educations"
-  """
+  # fetch aggregated fields from the table: "educations"
   educations_aggregate(
-    """distinct select on columns"""
+    # distinct select on columns
     distinct_on: [educations_select_column!]
 
-    """limit the nuber of rows returned"""
+    # limit the nuber of rows returned
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    # skip the first n rows. Use only with order_by
     offset: Int
 
-    """sort the rows by one or more columns"""
+    # sort the rows by one or more columns
     order_by: [educations_order_by!]
 
-    """filter the rows returned"""
+    # filter the rows returned
     where: educations_bool_exp
   ): educations_aggregate!
 
-  """fetch data from the table: "educations" using primary key columns"""
+  # fetch data from the table: "educations" using primary key columns
   educations_by_pk(id: Int!): educations
 
-  """
-  fetch data from the table: "posts"
-  """
-  posts(
-    """distinct select on columns"""
-    distinct_on: [posts_select_column!]
+  # fetch data from the table: "occupations"
+  occupations(
+    # distinct select on columns
+    distinct_on: [occupations_select_column!]
 
-    """limit the nuber of rows returned"""
+    # limit the nuber of rows returned
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    # skip the first n rows. Use only with order_by
     offset: Int
 
-    """sort the rows by one or more columns"""
-    order_by: [posts_order_by!]
+    # sort the rows by one or more columns
+    order_by: [occupations_order_by!]
 
-    """filter the rows returned"""
-    where: posts_bool_exp
-  ): [posts!]!
+    # filter the rows returned
+    where: occupations_bool_exp
+  ): [occupations!]!
 
-  """
-  fetch aggregated fields from the table: "posts"
-  """
-  posts_aggregate(
-    """distinct select on columns"""
-    distinct_on: [posts_select_column!]
+  # fetch aggregated fields from the table: "occupations"
+  occupations_aggregate(
+    # distinct select on columns
+    distinct_on: [occupations_select_column!]
 
-    """limit the nuber of rows returned"""
+    # limit the nuber of rows returned
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    # skip the first n rows. Use only with order_by
     offset: Int
 
-    """sort the rows by one or more columns"""
-    order_by: [posts_order_by!]
+    # sort the rows by one or more columns
+    order_by: [occupations_order_by!]
 
-    """filter the rows returned"""
-    where: posts_bool_exp
-  ): posts_aggregate!
+    # filter the rows returned
+    where: occupations_bool_exp
+  ): occupations_aggregate!
 
-  """fetch data from the table: "posts" using primary key columns"""
-  posts_by_pk(id: Int!): posts
+  # fetch data from the table: "occupations" using primary key columns
+  occupations_by_pk(id: Int!): occupations
 
-  """
-  fetch data from the table: "user_approval_requests"
-  """
-  user_approval_requests(
-    """distinct select on columns"""
-    distinct_on: [user_approval_requests_select_column!]
+  # fetch data from the table: "relations"
+  relations(
+    # distinct select on columns
+    distinct_on: [relations_select_column!]
 
-    """limit the nuber of rows returned"""
+    # limit the nuber of rows returned
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    # skip the first n rows. Use only with order_by
     offset: Int
 
-    """sort the rows by one or more columns"""
-    order_by: [user_approval_requests_order_by!]
+    # sort the rows by one or more columns
+    order_by: [relations_order_by!]
 
-    """filter the rows returned"""
-    where: user_approval_requests_bool_exp
-  ): [user_approval_requests!]!
+    # filter the rows returned
+    where: relations_bool_exp
+  ): [relations!]!
 
-  """
-  fetch aggregated fields from the table: "user_approval_requests"
-  """
-  user_approval_requests_aggregate(
-    """distinct select on columns"""
-    distinct_on: [user_approval_requests_select_column!]
+  # fetch aggregated fields from the table: "relations"
+  relations_aggregate(
+    # distinct select on columns
+    distinct_on: [relations_select_column!]
 
-    """limit the nuber of rows returned"""
+    # limit the nuber of rows returned
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    # skip the first n rows. Use only with order_by
     offset: Int
 
-    """sort the rows by one or more columns"""
-    order_by: [user_approval_requests_order_by!]
+    # sort the rows by one or more columns
+    order_by: [relations_order_by!]
 
-    """filter the rows returned"""
-    where: user_approval_requests_bool_exp
-  ): user_approval_requests_aggregate!
+    # filter the rows returned
+    where: relations_bool_exp
+  ): relations_aggregate!
 
-  """
-  fetch data from the table: "user_approval_requests" using primary key columns
-  """
-  user_approval_requests_by_pk(approved_user_id: String!, user_id: String!): user_approval_requests
+  # fetch data from the table: "relations" using primary key columns
+  relations_by_pk(id: Int!): relations
 
-  """
-  fetch data from the table: "users"
-  """
+  # fetch data from the table: "user_educations"
+  user_educations(
+    # distinct select on columns
+    distinct_on: [user_educations_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [user_educations_order_by!]
+
+    # filter the rows returned
+    where: user_educations_bool_exp
+  ): [user_educations!]!
+
+  # fetch aggregated fields from the table: "user_educations"
+  user_educations_aggregate(
+    # distinct select on columns
+    distinct_on: [user_educations_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [user_educations_order_by!]
+
+    # filter the rows returned
+    where: user_educations_bool_exp
+  ): user_educations_aggregate!
+
+  # fetch data from the table: "user_educations" using primary key columns
+  user_educations_by_pk(id: Int!): user_educations
+
+  # fetch data from the table: "user_families"
+  user_families(
+    # distinct select on columns
+    distinct_on: [user_families_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [user_families_order_by!]
+
+    # filter the rows returned
+    where: user_families_bool_exp
+  ): [user_families!]!
+
+  # fetch aggregated fields from the table: "user_families"
+  user_families_aggregate(
+    # distinct select on columns
+    distinct_on: [user_families_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [user_families_order_by!]
+
+    # filter the rows returned
+    where: user_families_bool_exp
+  ): user_families_aggregate!
+
+  # fetch data from the table: "user_families" using primary key columns
+  user_families_by_pk(id: Int!): user_families
+
+  # fetch data from the table: "user_occupations"
+  user_occupations(
+    # distinct select on columns
+    distinct_on: [user_occupations_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [user_occupations_order_by!]
+
+    # filter the rows returned
+    where: user_occupations_bool_exp
+  ): [user_occupations!]!
+
+  # fetch aggregated fields from the table: "user_occupations"
+  user_occupations_aggregate(
+    # distinct select on columns
+    distinct_on: [user_occupations_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [user_occupations_order_by!]
+
+    # filter the rows returned
+    where: user_occupations_bool_exp
+  ): user_occupations_aggregate!
+
+  # fetch data from the table: "user_occupations" using primary key columns
+  user_occupations_by_pk(id: Int!): user_occupations
+
+  # fetch data from the table: "users"
   users(
-    """distinct select on columns"""
+    # distinct select on columns
     distinct_on: [users_select_column!]
 
-    """limit the nuber of rows returned"""
+    # limit the nuber of rows returned
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    # skip the first n rows. Use only with order_by
     offset: Int
 
-    """sort the rows by one or more columns"""
+    # sort the rows by one or more columns
     order_by: [users_order_by!]
 
-    """filter the rows returned"""
+    # filter the rows returned
     where: users_bool_exp
   ): [users!]!
 
-  """
-  fetch aggregated fields from the table: "users"
-  """
+  # fetch aggregated fields from the table: "users"
   users_aggregate(
-    """distinct select on columns"""
+    # distinct select on columns
     distinct_on: [users_select_column!]
 
-    """limit the nuber of rows returned"""
+    # limit the nuber of rows returned
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    # skip the first n rows. Use only with order_by
     offset: Int
 
-    """sort the rows by one or more columns"""
+    # sort the rows by one or more columns
     order_by: [users_order_by!]
 
-    """filter the rows returned"""
+    # filter the rows returned
     where: users_bool_exp
   ): users_aggregate!
 
-  """fetch data from the table: "users" using primary key columns"""
+  # fetch data from the table: "users" using primary key columns
   users_by_pk(id: String!): users
 }
 
-"""
-expression to compare columns of type text. All fields are combined with logical 'AND'.
-"""
+# expression to compare columns of type text. All fields are combined with logical 'AND'.
 input text_comparison_exp {
   _eq: String
   _gt: String
@@ -1046,9 +1527,7 @@ input text_comparison_exp {
 
 scalar timestamptz
 
-"""
-expression to compare columns of type timestamptz. All fields are combined with logical 'AND'.
-"""
+# expression to compare columns of type timestamptz. All fields are combined with logical 'AND'.
 input timestamptz_comparison_exp {
   _eq: timestamptz
   _gt: timestamptz
@@ -1061,446 +1540,1611 @@ input timestamptz_comparison_exp {
   _nin: [timestamptz]
 }
 
-"""
-columns and relationships of "user_approval_requests"
-"""
-type user_approval_requests {
-  """An object relationship"""
-  approved_user: users!
-  approved_user_id: String!
+scalar timetz
 
-  """An object relationship"""
-  user: users!
+# expression to compare columns of type timetz. All fields are combined with logical 'AND'.
+input timetz_comparison_exp {
+  _eq: timetz
+  _gt: timetz
+  _gte: timetz
+  _in: [timetz]
+  _is_null: Boolean
+  _lt: timetz
+  _lte: timetz
+  _neq: timetz
+  _nin: [timetz]
+}
+
+# columns and relationships of "user_educations"
+type user_educations {
+  # An object relationship
+  education: educations!
+  education_id: Int!
+  id: Int!
   user_id: String!
 }
 
-"""
-aggregated selection of "user_approval_requests"
-"""
-type user_approval_requests_aggregate {
-  aggregate: user_approval_requests_aggregate_fields
-  nodes: [user_approval_requests!]!
+# aggregated selection of "user_educations"
+type user_educations_aggregate {
+  aggregate: user_educations_aggregate_fields
+  nodes: [user_educations!]!
 }
 
-"""
-aggregate fields of "user_approval_requests"
-"""
-type user_approval_requests_aggregate_fields {
-  count(columns: [user_approval_requests_select_column!], distinct: Boolean): Int
-  max: user_approval_requests_max_fields
-  min: user_approval_requests_min_fields
+# aggregate fields of "user_educations"
+type user_educations_aggregate_fields {
+  avg: user_educations_avg_fields
+  count(columns: [user_educations_select_column!], distinct: Boolean): Int
+  max: user_educations_max_fields
+  min: user_educations_min_fields
+  stddev: user_educations_stddev_fields
+  stddev_pop: user_educations_stddev_pop_fields
+  stddev_samp: user_educations_stddev_samp_fields
+  sum: user_educations_sum_fields
+  var_pop: user_educations_var_pop_fields
+  var_samp: user_educations_var_samp_fields
+  variance: user_educations_variance_fields
 }
 
-"""
-input type for inserting array relation for remote table "user_approval_requests"
-"""
-input user_approval_requests_arr_rel_insert_input {
-  data: [user_approval_requests_insert_input!]!
-  on_conflict: user_approval_requests_on_conflict
+# order by aggregate values of table "user_educations"
+input user_educations_aggregate_order_by {
+  avg: user_educations_avg_order_by
+  count: order_by
+  max: user_educations_max_order_by
+  min: user_educations_min_order_by
+  stddev: user_educations_stddev_order_by
+  stddev_pop: user_educations_stddev_pop_order_by
+  stddev_samp: user_educations_stddev_samp_order_by
+  sum: user_educations_sum_order_by
+  var_pop: user_educations_var_pop_order_by
+  var_samp: user_educations_var_samp_order_by
+  variance: user_educations_variance_order_by
 }
 
-"""
-Boolean expression to filter rows from the table "user_approval_requests". All fields are combined with a logical 'AND'.
-"""
-input user_approval_requests_bool_exp {
-  _and: [user_approval_requests_bool_exp]
-  _not: user_approval_requests_bool_exp
-  _or: [user_approval_requests_bool_exp]
-  approved_user: users_bool_exp
-  approved_user_id: text_comparison_exp
-  user: users_bool_exp
+# input type for inserting array relation for remote table "user_educations"
+input user_educations_arr_rel_insert_input {
+  data: [user_educations_insert_input!]!
+  on_conflict: user_educations_on_conflict
+}
+
+# aggregate avg on columns
+type user_educations_avg_fields {
+  education_id: Float
+  id: Float
+}
+
+# order by avg() on columns of table "user_educations"
+input user_educations_avg_order_by {
+  education_id: order_by
+  id: order_by
+}
+
+# Boolean expression to filter rows from the table "user_educations". All fields are combined with a logical 'AND'.
+input user_educations_bool_exp {
+  _and: [user_educations_bool_exp]
+  _not: user_educations_bool_exp
+  _or: [user_educations_bool_exp]
+  education: educations_bool_exp
+  education_id: integer_comparison_exp
+  id: integer_comparison_exp
   user_id: text_comparison_exp
 }
 
-"""
-unique or primary key constraints on table "user_approval_requests"
-"""
-enum user_approval_requests_constraint {
-  """unique or primary key constraint"""
-  user_approval_requests_pkey
+# unique or primary key constraints on table "user_educations"
+enum user_educations_constraint {
+  # unique or primary key constraint
+  user_educations_pkey
 }
 
-"""
-input type for inserting data into table "user_approval_requests"
-"""
-input user_approval_requests_insert_input {
-  approved_user: users_obj_rel_insert_input
-  approved_user_id: String
-  user: users_obj_rel_insert_input
+# input type for incrementing integer columne in table "user_educations"
+input user_educations_inc_input {
+  education_id: Int
+  id: Int
+}
+
+# input type for inserting data into table "user_educations"
+input user_educations_insert_input {
+  education: educations_obj_rel_insert_input
+  education_id: Int
+  id: Int
   user_id: String
 }
 
-"""aggregate max on columns"""
-type user_approval_requests_max_fields {
-  approved_user_id: String
+# aggregate max on columns
+type user_educations_max_fields {
+  education_id: Int
+  id: Int
   user_id: String
 }
 
-"""aggregate min on columns"""
-type user_approval_requests_min_fields {
-  approved_user_id: String
-  user_id: String
-}
-
-"""
-response of any mutation on the table "user_approval_requests"
-"""
-type user_approval_requests_mutation_response {
-  """number of affected rows by the mutation"""
-  affected_rows: Int!
-
-  """data of the affected rows by the mutation"""
-  returning: [user_approval_requests!]!
-}
-
-"""
-input type for inserting object relation for remote table "user_approval_requests"
-"""
-input user_approval_requests_obj_rel_insert_input {
-  data: user_approval_requests_insert_input!
-  on_conflict: user_approval_requests_on_conflict
-}
-
-"""
-on conflict condition type for table "user_approval_requests"
-"""
-input user_approval_requests_on_conflict {
-  """action when conflict occurs (deprecated)"""
-  action: conflict_action
-  constraint: user_approval_requests_constraint!
-  update_columns: [user_approval_requests_update_column!]
-}
-
-"""
-ordering options when selecting data from "user_approval_requests"
-"""
-input user_approval_requests_order_by {
-  approved_user: users_order_by
-  approved_user_id: order_by
-  user: users_order_by
+# order by max() on columns of table "user_educations"
+input user_educations_max_order_by {
+  education_id: order_by
+  id: order_by
   user_id: order_by
 }
 
-"""
-select columns of table "user_approval_requests"
-"""
-enum user_approval_requests_select_column {
-  """column name"""
-  approved_user_id
-
-  """column name"""
-  user_id
-}
-
-"""
-input type for updating data in table "user_approval_requests"
-"""
-input user_approval_requests_set_input {
-  approved_user_id: String
+# aggregate min on columns
+type user_educations_min_fields {
+  education_id: Int
+  id: Int
   user_id: String
 }
 
-"""
-update columns of table "user_approval_requests"
-"""
-enum user_approval_requests_update_column {
-  """column name"""
-  approved_user_id
+# order by min() on columns of table "user_educations"
+input user_educations_min_order_by {
+  education_id: order_by
+  id: order_by
+  user_id: order_by
+}
 
-  """column name"""
+# response of any mutation on the table "user_educations"
+type user_educations_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [user_educations!]!
+}
+
+# input type for inserting object relation for remote table "user_educations"
+input user_educations_obj_rel_insert_input {
+  data: user_educations_insert_input!
+  on_conflict: user_educations_on_conflict
+}
+
+# on conflict condition type for table "user_educations"
+input user_educations_on_conflict {
+  constraint: user_educations_constraint!
+  update_columns: [user_educations_update_column!]!
+}
+
+# ordering options when selecting data from "user_educations"
+input user_educations_order_by {
+  education: educations_order_by
+  education_id: order_by
+  id: order_by
+  user_id: order_by
+}
+
+# select columns of table "user_educations"
+enum user_educations_select_column {
+  # column name
+  education_id
+
+  # column name
+  id
+
+  # column name
   user_id
 }
 
-"""
-columns and relationships of "users"
-"""
-type users {
-  """An object relationship"""
-  approved_user: users
-  approved_user_id: String
+# input type for updating data in table "user_educations"
+input user_educations_set_input {
+  education_id: Int
+  id: Int
+  user_id: String
+}
+
+# aggregate stddev on columns
+type user_educations_stddev_fields {
+  education_id: Float
+  id: Float
+}
+
+# order by stddev() on columns of table "user_educations"
+input user_educations_stddev_order_by {
+  education_id: order_by
+  id: order_by
+}
+
+# aggregate stddev_pop on columns
+type user_educations_stddev_pop_fields {
+  education_id: Float
+  id: Float
+}
+
+# order by stddev_pop() on columns of table "user_educations"
+input user_educations_stddev_pop_order_by {
+  education_id: order_by
+  id: order_by
+}
+
+# aggregate stddev_samp on columns
+type user_educations_stddev_samp_fields {
+  education_id: Float
+  id: Float
+}
+
+# order by stddev_samp() on columns of table "user_educations"
+input user_educations_stddev_samp_order_by {
+  education_id: order_by
+  id: order_by
+}
+
+# aggregate sum on columns
+type user_educations_sum_fields {
+  education_id: Int
+  id: Int
+}
+
+# order by sum() on columns of table "user_educations"
+input user_educations_sum_order_by {
+  education_id: order_by
+  id: order_by
+}
+
+# update columns of table "user_educations"
+enum user_educations_update_column {
+  # column name
+  education_id
+
+  # column name
+  id
+
+  # column name
+  user_id
+}
+
+# aggregate var_pop on columns
+type user_educations_var_pop_fields {
+  education_id: Float
+  id: Float
+}
+
+# order by var_pop() on columns of table "user_educations"
+input user_educations_var_pop_order_by {
+  education_id: order_by
+  id: order_by
+}
+
+# aggregate var_samp on columns
+type user_educations_var_samp_fields {
+  education_id: Float
+  id: Float
+}
+
+# order by var_samp() on columns of table "user_educations"
+input user_educations_var_samp_order_by {
+  education_id: order_by
+  id: order_by
+}
+
+# aggregate variance on columns
+type user_educations_variance_fields {
+  education_id: Float
+  id: Float
+}
+
+# order by variance() on columns of table "user_educations"
+input user_educations_variance_order_by {
+  education_id: order_by
+  id: order_by
+}
+
+# columns and relationships of "user_families"
+type user_families {
+  birth_date: date
+  first_name: String!
+  gender: Int!
+  id: Int!
+  last_name: String!
+  middle_name: String!
+  phone: String
+
+  # An object relationship
+  relation: relations!
+  relation_id: Int!
+  user_id: String!
+}
+
+# aggregated selection of "user_families"
+type user_families_aggregate {
+  aggregate: user_families_aggregate_fields
+  nodes: [user_families!]!
+}
+
+# aggregate fields of "user_families"
+type user_families_aggregate_fields {
+  avg: user_families_avg_fields
+  count(columns: [user_families_select_column!], distinct: Boolean): Int
+  max: user_families_max_fields
+  min: user_families_min_fields
+  stddev: user_families_stddev_fields
+  stddev_pop: user_families_stddev_pop_fields
+  stddev_samp: user_families_stddev_samp_fields
+  sum: user_families_sum_fields
+  var_pop: user_families_var_pop_fields
+  var_samp: user_families_var_samp_fields
+  variance: user_families_variance_fields
+}
+
+# order by aggregate values of table "user_families"
+input user_families_aggregate_order_by {
+  avg: user_families_avg_order_by
+  count: order_by
+  max: user_families_max_order_by
+  min: user_families_min_order_by
+  stddev: user_families_stddev_order_by
+  stddev_pop: user_families_stddev_pop_order_by
+  stddev_samp: user_families_stddev_samp_order_by
+  sum: user_families_sum_order_by
+  var_pop: user_families_var_pop_order_by
+  var_samp: user_families_var_samp_order_by
+  variance: user_families_variance_order_by
+}
+
+# input type for inserting array relation for remote table "user_families"
+input user_families_arr_rel_insert_input {
+  data: [user_families_insert_input!]!
+  on_conflict: user_families_on_conflict
+}
+
+# aggregate avg on columns
+type user_families_avg_fields {
+  gender: Float
+  id: Float
+  relation_id: Float
+}
+
+# order by avg() on columns of table "user_families"
+input user_families_avg_order_by {
+  gender: order_by
+  id: order_by
+  relation_id: order_by
+}
+
+# Boolean expression to filter rows from the table "user_families". All fields are combined with a logical 'AND'.
+input user_families_bool_exp {
+  _and: [user_families_bool_exp]
+  _not: user_families_bool_exp
+  _or: [user_families_bool_exp]
+  birth_date: date_comparison_exp
+  first_name: text_comparison_exp
+  gender: integer_comparison_exp
+  id: integer_comparison_exp
+  last_name: text_comparison_exp
+  middle_name: text_comparison_exp
+  phone: text_comparison_exp
+  relation: relations_bool_exp
+  relation_id: integer_comparison_exp
+  user_id: text_comparison_exp
+}
+
+# unique or primary key constraints on table "user_families"
+enum user_families_constraint {
+  # unique or primary key constraint
+  user_families_pkey
+}
+
+# input type for incrementing integer columne in table "user_families"
+input user_families_inc_input {
+  gender: Int
+  id: Int
+  relation_id: Int
+}
+
+# input type for inserting data into table "user_families"
+input user_families_insert_input {
+  birth_date: date
   first_name: String
+  gender: Int
+  id: Int
+  last_name: String
+  middle_name: String
+  phone: String
+  relation: relations_obj_rel_insert_input
+  relation_id: Int
+  user_id: String
+}
+
+# aggregate max on columns
+type user_families_max_fields {
+  birth_date: date
+  first_name: String
+  gender: Int
+  id: Int
+  last_name: String
+  middle_name: String
+  phone: String
+  relation_id: Int
+  user_id: String
+}
+
+# order by max() on columns of table "user_families"
+input user_families_max_order_by {
+  birth_date: order_by
+  first_name: order_by
+  gender: order_by
+  id: order_by
+  last_name: order_by
+  middle_name: order_by
+  phone: order_by
+  relation_id: order_by
+  user_id: order_by
+}
+
+# aggregate min on columns
+type user_families_min_fields {
+  birth_date: date
+  first_name: String
+  gender: Int
+  id: Int
+  last_name: String
+  middle_name: String
+  phone: String
+  relation_id: Int
+  user_id: String
+}
+
+# order by min() on columns of table "user_families"
+input user_families_min_order_by {
+  birth_date: order_by
+  first_name: order_by
+  gender: order_by
+  id: order_by
+  last_name: order_by
+  middle_name: order_by
+  phone: order_by
+  relation_id: order_by
+  user_id: order_by
+}
+
+# response of any mutation on the table "user_families"
+type user_families_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [user_families!]!
+}
+
+# input type for inserting object relation for remote table "user_families"
+input user_families_obj_rel_insert_input {
+  data: user_families_insert_input!
+  on_conflict: user_families_on_conflict
+}
+
+# on conflict condition type for table "user_families"
+input user_families_on_conflict {
+  constraint: user_families_constraint!
+  update_columns: [user_families_update_column!]!
+}
+
+# ordering options when selecting data from "user_families"
+input user_families_order_by {
+  birth_date: order_by
+  first_name: order_by
+  gender: order_by
+  id: order_by
+  last_name: order_by
+  middle_name: order_by
+  phone: order_by
+  relation: relations_order_by
+  relation_id: order_by
+  user_id: order_by
+}
+
+# select columns of table "user_families"
+enum user_families_select_column {
+  # column name
+  birth_date
+
+  # column name
+  first_name
+
+  # column name
+  gender
+
+  # column name
+  id
+
+  # column name
+  last_name
+
+  # column name
+  middle_name
+
+  # column name
+  phone
+
+  # column name
+  relation_id
+
+  # column name
+  user_id
+}
+
+# input type for updating data in table "user_families"
+input user_families_set_input {
+  birth_date: date
+  first_name: String
+  gender: Int
+  id: Int
+  last_name: String
+  middle_name: String
+  phone: String
+  relation_id: Int
+  user_id: String
+}
+
+# aggregate stddev on columns
+type user_families_stddev_fields {
+  gender: Float
+  id: Float
+  relation_id: Float
+}
+
+# order by stddev() on columns of table "user_families"
+input user_families_stddev_order_by {
+  gender: order_by
+  id: order_by
+  relation_id: order_by
+}
+
+# aggregate stddev_pop on columns
+type user_families_stddev_pop_fields {
+  gender: Float
+  id: Float
+  relation_id: Float
+}
+
+# order by stddev_pop() on columns of table "user_families"
+input user_families_stddev_pop_order_by {
+  gender: order_by
+  id: order_by
+  relation_id: order_by
+}
+
+# aggregate stddev_samp on columns
+type user_families_stddev_samp_fields {
+  gender: Float
+  id: Float
+  relation_id: Float
+}
+
+# order by stddev_samp() on columns of table "user_families"
+input user_families_stddev_samp_order_by {
+  gender: order_by
+  id: order_by
+  relation_id: order_by
+}
+
+# aggregate sum on columns
+type user_families_sum_fields {
+  gender: Int
+  id: Int
+  relation_id: Int
+}
+
+# order by sum() on columns of table "user_families"
+input user_families_sum_order_by {
+  gender: order_by
+  id: order_by
+  relation_id: order_by
+}
+
+# update columns of table "user_families"
+enum user_families_update_column {
+  # column name
+  birth_date
+
+  # column name
+  first_name
+
+  # column name
+  gender
+
+  # column name
+  id
+
+  # column name
+  last_name
+
+  # column name
+  middle_name
+
+  # column name
+  phone
+
+  # column name
+  relation_id
+
+  # column name
+  user_id
+}
+
+# aggregate var_pop on columns
+type user_families_var_pop_fields {
+  gender: Float
+  id: Float
+  relation_id: Float
+}
+
+# order by var_pop() on columns of table "user_families"
+input user_families_var_pop_order_by {
+  gender: order_by
+  id: order_by
+  relation_id: order_by
+}
+
+# aggregate var_samp on columns
+type user_families_var_samp_fields {
+  gender: Float
+  id: Float
+  relation_id: Float
+}
+
+# order by var_samp() on columns of table "user_families"
+input user_families_var_samp_order_by {
+  gender: order_by
+  id: order_by
+  relation_id: order_by
+}
+
+# aggregate variance on columns
+type user_families_variance_fields {
+  gender: Float
+  id: Float
+  relation_id: Float
+}
+
+# order by variance() on columns of table "user_families"
+input user_families_variance_order_by {
+  gender: order_by
+  id: order_by
+  relation_id: order_by
+}
+
+# columns and relationships of "user_occupations"
+type user_occupations {
+  id: Int!
+
+  # An object relationship
+  occupation: occupations!
+  occupation_id: Int!
+  user_id: String!
+}
+
+# aggregated selection of "user_occupations"
+type user_occupations_aggregate {
+  aggregate: user_occupations_aggregate_fields
+  nodes: [user_occupations!]!
+}
+
+# aggregate fields of "user_occupations"
+type user_occupations_aggregate_fields {
+  avg: user_occupations_avg_fields
+  count(columns: [user_occupations_select_column!], distinct: Boolean): Int
+  max: user_occupations_max_fields
+  min: user_occupations_min_fields
+  stddev: user_occupations_stddev_fields
+  stddev_pop: user_occupations_stddev_pop_fields
+  stddev_samp: user_occupations_stddev_samp_fields
+  sum: user_occupations_sum_fields
+  var_pop: user_occupations_var_pop_fields
+  var_samp: user_occupations_var_samp_fields
+  variance: user_occupations_variance_fields
+}
+
+# order by aggregate values of table "user_occupations"
+input user_occupations_aggregate_order_by {
+  avg: user_occupations_avg_order_by
+  count: order_by
+  max: user_occupations_max_order_by
+  min: user_occupations_min_order_by
+  stddev: user_occupations_stddev_order_by
+  stddev_pop: user_occupations_stddev_pop_order_by
+  stddev_samp: user_occupations_stddev_samp_order_by
+  sum: user_occupations_sum_order_by
+  var_pop: user_occupations_var_pop_order_by
+  var_samp: user_occupations_var_samp_order_by
+  variance: user_occupations_variance_order_by
+}
+
+# input type for inserting array relation for remote table "user_occupations"
+input user_occupations_arr_rel_insert_input {
+  data: [user_occupations_insert_input!]!
+  on_conflict: user_occupations_on_conflict
+}
+
+# aggregate avg on columns
+type user_occupations_avg_fields {
+  id: Float
+  occupation_id: Float
+}
+
+# order by avg() on columns of table "user_occupations"
+input user_occupations_avg_order_by {
+  id: order_by
+  occupation_id: order_by
+}
+
+# Boolean expression to filter rows from the table "user_occupations". All fields are combined with a logical 'AND'.
+input user_occupations_bool_exp {
+  _and: [user_occupations_bool_exp]
+  _not: user_occupations_bool_exp
+  _or: [user_occupations_bool_exp]
+  id: integer_comparison_exp
+  occupation: occupations_bool_exp
+  occupation_id: integer_comparison_exp
+  user_id: text_comparison_exp
+}
+
+# unique or primary key constraints on table "user_occupations"
+enum user_occupations_constraint {
+  # unique or primary key constraint
+  user_occupations_pkey
+}
+
+# input type for incrementing integer columne in table "user_occupations"
+input user_occupations_inc_input {
+  id: Int
+  occupation_id: Int
+}
+
+# input type for inserting data into table "user_occupations"
+input user_occupations_insert_input {
+  id: Int
+  occupation: occupations_obj_rel_insert_input
+  occupation_id: Int
+  user_id: String
+}
+
+# aggregate max on columns
+type user_occupations_max_fields {
+  id: Int
+  occupation_id: Int
+  user_id: String
+}
+
+# order by max() on columns of table "user_occupations"
+input user_occupations_max_order_by {
+  id: order_by
+  occupation_id: order_by
+  user_id: order_by
+}
+
+# aggregate min on columns
+type user_occupations_min_fields {
+  id: Int
+  occupation_id: Int
+  user_id: String
+}
+
+# order by min() on columns of table "user_occupations"
+input user_occupations_min_order_by {
+  id: order_by
+  occupation_id: order_by
+  user_id: order_by
+}
+
+# response of any mutation on the table "user_occupations"
+type user_occupations_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [user_occupations!]!
+}
+
+# input type for inserting object relation for remote table "user_occupations"
+input user_occupations_obj_rel_insert_input {
+  data: user_occupations_insert_input!
+  on_conflict: user_occupations_on_conflict
+}
+
+# on conflict condition type for table "user_occupations"
+input user_occupations_on_conflict {
+  constraint: user_occupations_constraint!
+  update_columns: [user_occupations_update_column!]!
+}
+
+# ordering options when selecting data from "user_occupations"
+input user_occupations_order_by {
+  id: order_by
+  occupation: occupations_order_by
+  occupation_id: order_by
+  user_id: order_by
+}
+
+# select columns of table "user_occupations"
+enum user_occupations_select_column {
+  # column name
+  id
+
+  # column name
+  occupation_id
+
+  # column name
+  user_id
+}
+
+# input type for updating data in table "user_occupations"
+input user_occupations_set_input {
+  id: Int
+  occupation_id: Int
+  user_id: String
+}
+
+# aggregate stddev on columns
+type user_occupations_stddev_fields {
+  id: Float
+  occupation_id: Float
+}
+
+# order by stddev() on columns of table "user_occupations"
+input user_occupations_stddev_order_by {
+  id: order_by
+  occupation_id: order_by
+}
+
+# aggregate stddev_pop on columns
+type user_occupations_stddev_pop_fields {
+  id: Float
+  occupation_id: Float
+}
+
+# order by stddev_pop() on columns of table "user_occupations"
+input user_occupations_stddev_pop_order_by {
+  id: order_by
+  occupation_id: order_by
+}
+
+# aggregate stddev_samp on columns
+type user_occupations_stddev_samp_fields {
+  id: Float
+  occupation_id: Float
+}
+
+# order by stddev_samp() on columns of table "user_occupations"
+input user_occupations_stddev_samp_order_by {
+  id: order_by
+  occupation_id: order_by
+}
+
+# aggregate sum on columns
+type user_occupations_sum_fields {
+  id: Int
+  occupation_id: Int
+}
+
+# order by sum() on columns of table "user_occupations"
+input user_occupations_sum_order_by {
+  id: order_by
+  occupation_id: order_by
+}
+
+# update columns of table "user_occupations"
+enum user_occupations_update_column {
+  # column name
+  id
+
+  # column name
+  occupation_id
+
+  # column name
+  user_id
+}
+
+# aggregate var_pop on columns
+type user_occupations_var_pop_fields {
+  id: Float
+  occupation_id: Float
+}
+
+# order by var_pop() on columns of table "user_occupations"
+input user_occupations_var_pop_order_by {
+  id: order_by
+  occupation_id: order_by
+}
+
+# aggregate var_samp on columns
+type user_occupations_var_samp_fields {
+  id: Float
+  occupation_id: Float
+}
+
+# order by var_samp() on columns of table "user_occupations"
+input user_occupations_var_samp_order_by {
+  id: order_by
+  occupation_id: order_by
+}
+
+# aggregate variance on columns
+type user_occupations_variance_fields {
+  id: Float
+  occupation_id: Float
+}
+
+# order by variance() on columns of table "user_occupations"
+input user_occupations_variance_order_by {
+  id: order_by
+  occupation_id: order_by
+}
+
+# columns and relationships of "users"
+type users {
+  approved_by_user_id: String
+  birth_date: date
+  birth_time: timetz
+  blood_group: Int!
+  company_business_name: String
+  created_at: timestamptz!
+  current_address: String
+  current_place_id: String
+  father_in_law_name: String
+  father_in_law_place_id: String
+  first_name: String
+  gender: Int!
   id: String!
   image: String
   is_approved: Boolean!
   is_registration_completed: Boolean!
   last_name: String
+  marital_status: Int!
+  middle_name: String
+  native_address: String
+  native_place_id: String
   phone: String!
+  updated_at: timestamptz!
 
-  """An array relationship"""
-  posts(
-    """distinct select on columns"""
-    distinct_on: [posts_select_column!]
+  # An array relationship
+  user_educations(
+    # distinct select on columns
+    distinct_on: [user_educations_select_column!]
 
-    """limit the nuber of rows returned"""
+    # limit the nuber of rows returned
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    # skip the first n rows. Use only with order_by
     offset: Int
 
-    """sort the rows by one or more columns"""
-    order_by: [posts_order_by!]
+    # sort the rows by one or more columns
+    order_by: [user_educations_order_by!]
 
-    """filter the rows returned"""
-    where: posts_bool_exp
-  ): [posts!]!
+    # filter the rows returned
+    where: user_educations_bool_exp
+  ): [user_educations!]!
 
-  """An aggregated array relationship"""
-  posts_aggregate(
-    """distinct select on columns"""
-    distinct_on: [posts_select_column!]
+  # An aggregated array relationship
+  user_educations_aggregate(
+    # distinct select on columns
+    distinct_on: [user_educations_select_column!]
 
-    """limit the nuber of rows returned"""
+    # limit the nuber of rows returned
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    # skip the first n rows. Use only with order_by
     offset: Int
 
-    """sort the rows by one or more columns"""
-    order_by: [posts_order_by!]
+    # sort the rows by one or more columns
+    order_by: [user_educations_order_by!]
 
-    """filter the rows returned"""
-    where: posts_bool_exp
-  ): posts_aggregate!
+    # filter the rows returned
+    where: user_educations_bool_exp
+  ): user_educations_aggregate!
 
-  """An array relationship"""
-  user_approval_requests(
-    """distinct select on columns"""
-    distinct_on: [user_approval_requests_select_column!]
+  # An array relationship
+  user_families(
+    # distinct select on columns
+    distinct_on: [user_families_select_column!]
 
-    """limit the nuber of rows returned"""
+    # limit the nuber of rows returned
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    # skip the first n rows. Use only with order_by
     offset: Int
 
-    """sort the rows by one or more columns"""
-    order_by: [user_approval_requests_order_by!]
+    # sort the rows by one or more columns
+    order_by: [user_families_order_by!]
 
-    """filter the rows returned"""
-    where: user_approval_requests_bool_exp
-  ): [user_approval_requests!]!
+    # filter the rows returned
+    where: user_families_bool_exp
+  ): [user_families!]!
 
-  """An aggregated array relationship"""
-  user_approval_requests_aggregate(
-    """distinct select on columns"""
-    distinct_on: [user_approval_requests_select_column!]
+  # An aggregated array relationship
+  user_families_aggregate(
+    # distinct select on columns
+    distinct_on: [user_families_select_column!]
 
-    """limit the nuber of rows returned"""
+    # limit the nuber of rows returned
     limit: Int
 
-    """skip the first n rows. Use only with order_by"""
+    # skip the first n rows. Use only with order_by
     offset: Int
 
-    """sort the rows by one or more columns"""
-    order_by: [user_approval_requests_order_by!]
+    # sort the rows by one or more columns
+    order_by: [user_families_order_by!]
 
-    """filter the rows returned"""
-    where: user_approval_requests_bool_exp
-  ): user_approval_requests_aggregate!
+    # filter the rows returned
+    where: user_families_bool_exp
+  ): user_families_aggregate!
+
+  # An array relationship
+  user_occupations(
+    # distinct select on columns
+    distinct_on: [user_occupations_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [user_occupations_order_by!]
+
+    # filter the rows returned
+    where: user_occupations_bool_exp
+  ): [user_occupations!]!
+
+  # An aggregated array relationship
+  user_occupations_aggregate(
+    # distinct select on columns
+    distinct_on: [user_occupations_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [user_occupations_order_by!]
+
+    # filter the rows returned
+    where: user_occupations_bool_exp
+  ): user_occupations_aggregate!
 }
 
-"""
-aggregated selection of "users"
-"""
+# aggregated selection of "users"
 type users_aggregate {
   aggregate: users_aggregate_fields
   nodes: [users!]!
 }
 
-"""
-aggregate fields of "users"
-"""
+# aggregate fields of "users"
 type users_aggregate_fields {
+  avg: users_avg_fields
   count(columns: [users_select_column!], distinct: Boolean): Int
   max: users_max_fields
   min: users_min_fields
+  stddev: users_stddev_fields
+  stddev_pop: users_stddev_pop_fields
+  stddev_samp: users_stddev_samp_fields
+  sum: users_sum_fields
+  var_pop: users_var_pop_fields
+  var_samp: users_var_samp_fields
+  variance: users_variance_fields
 }
 
-"""
-input type for inserting array relation for remote table "users"
-"""
+# order by aggregate values of table "users"
+input users_aggregate_order_by {
+  avg: users_avg_order_by
+  count: order_by
+  max: users_max_order_by
+  min: users_min_order_by
+  stddev: users_stddev_order_by
+  stddev_pop: users_stddev_pop_order_by
+  stddev_samp: users_stddev_samp_order_by
+  sum: users_sum_order_by
+  var_pop: users_var_pop_order_by
+  var_samp: users_var_samp_order_by
+  variance: users_variance_order_by
+}
+
+# input type for inserting array relation for remote table "users"
 input users_arr_rel_insert_input {
   data: [users_insert_input!]!
   on_conflict: users_on_conflict
 }
 
-"""
-Boolean expression to filter rows from the table "users". All fields are combined with a logical 'AND'.
-"""
+# aggregate avg on columns
+type users_avg_fields {
+  blood_group: Float
+  gender: Float
+  marital_status: Float
+}
+
+# order by avg() on columns of table "users"
+input users_avg_order_by {
+  blood_group: order_by
+  gender: order_by
+  marital_status: order_by
+}
+
+# Boolean expression to filter rows from the table "users". All fields are combined with a logical 'AND'.
 input users_bool_exp {
   _and: [users_bool_exp]
   _not: users_bool_exp
   _or: [users_bool_exp]
-  approved_user: users_bool_exp
-  approved_user_id: text_comparison_exp
+  approved_by_user_id: text_comparison_exp
+  birth_date: date_comparison_exp
+  birth_time: timetz_comparison_exp
+  blood_group: integer_comparison_exp
+  company_business_name: text_comparison_exp
+  created_at: timestamptz_comparison_exp
+  current_address: text_comparison_exp
+  current_place_id: text_comparison_exp
+  father_in_law_name: text_comparison_exp
+  father_in_law_place_id: text_comparison_exp
   first_name: text_comparison_exp
+  gender: integer_comparison_exp
   id: text_comparison_exp
   image: text_comparison_exp
   is_approved: boolean_comparison_exp
   is_registration_completed: boolean_comparison_exp
   last_name: text_comparison_exp
+  marital_status: integer_comparison_exp
+  middle_name: text_comparison_exp
+  native_address: text_comparison_exp
+  native_place_id: text_comparison_exp
   phone: text_comparison_exp
-  posts: posts_bool_exp
-  user_approval_requests: user_approval_requests_bool_exp
+  updated_at: timestamptz_comparison_exp
+  user_educations: user_educations_bool_exp
+  user_families: user_families_bool_exp
+  user_occupations: user_occupations_bool_exp
 }
 
-"""
-unique or primary key constraints on table "users"
-"""
+# unique or primary key constraints on table "users"
 enum users_constraint {
-  """unique or primary key constraint"""
+  # unique or primary key constraint
   users_pkey
 }
 
-"""
-input type for inserting data into table "users"
-"""
+# input type for incrementing integer columne in table "users"
+input users_inc_input {
+  blood_group: Int
+  gender: Int
+  marital_status: Int
+}
+
+# input type for inserting data into table "users"
 input users_insert_input {
-  approved_user: users_obj_rel_insert_input
-  approved_user_id: String
+  approved_by_user_id: String
+  birth_date: date
+  birth_time: timetz
+  blood_group: Int
+  company_business_name: String
+  created_at: timestamptz
+  current_address: String
+  current_place_id: String
+  father_in_law_name: String
+  father_in_law_place_id: String
   first_name: String
+  gender: Int
   id: String
   image: String
   is_approved: Boolean
   is_registration_completed: Boolean
   last_name: String
+  marital_status: Int
+  middle_name: String
+  native_address: String
+  native_place_id: String
   phone: String
-  posts: posts_arr_rel_insert_input
-  user_approval_requests: user_approval_requests_arr_rel_insert_input
+  updated_at: timestamptz
+  user_educations: user_educations_arr_rel_insert_input
+  user_families: user_families_arr_rel_insert_input
+  user_occupations: user_occupations_arr_rel_insert_input
 }
 
-"""aggregate max on columns"""
+# aggregate max on columns
 type users_max_fields {
-  approved_user_id: String
+  approved_by_user_id: String
+  birth_date: date
+  birth_time: timetz
+  blood_group: Int
+  company_business_name: String
+  created_at: timestamptz
+  current_address: String
+  current_place_id: String
+  father_in_law_name: String
+  father_in_law_place_id: String
   first_name: String
+  gender: Int
   id: String
   image: String
   last_name: String
+  marital_status: Int
+  middle_name: String
+  native_address: String
+  native_place_id: String
   phone: String
+  updated_at: timestamptz
 }
 
-"""aggregate min on columns"""
+# order by max() on columns of table "users"
+input users_max_order_by {
+  approved_by_user_id: order_by
+  birth_date: order_by
+  birth_time: order_by
+  blood_group: order_by
+  company_business_name: order_by
+  created_at: order_by
+  current_address: order_by
+  current_place_id: order_by
+  father_in_law_name: order_by
+  father_in_law_place_id: order_by
+  first_name: order_by
+  gender: order_by
+  id: order_by
+  image: order_by
+  last_name: order_by
+  marital_status: order_by
+  middle_name: order_by
+  native_address: order_by
+  native_place_id: order_by
+  phone: order_by
+  updated_at: order_by
+}
+
+# aggregate min on columns
 type users_min_fields {
-  approved_user_id: String
+  approved_by_user_id: String
+  birth_date: date
+  birth_time: timetz
+  blood_group: Int
+  company_business_name: String
+  created_at: timestamptz
+  current_address: String
+  current_place_id: String
+  father_in_law_name: String
+  father_in_law_place_id: String
   first_name: String
+  gender: Int
   id: String
   image: String
   last_name: String
+  marital_status: Int
+  middle_name: String
+  native_address: String
+  native_place_id: String
   phone: String
+  updated_at: timestamptz
 }
 
-"""
-response of any mutation on the table "users"
-"""
+# order by min() on columns of table "users"
+input users_min_order_by {
+  approved_by_user_id: order_by
+  birth_date: order_by
+  birth_time: order_by
+  blood_group: order_by
+  company_business_name: order_by
+  created_at: order_by
+  current_address: order_by
+  current_place_id: order_by
+  father_in_law_name: order_by
+  father_in_law_place_id: order_by
+  first_name: order_by
+  gender: order_by
+  id: order_by
+  image: order_by
+  last_name: order_by
+  marital_status: order_by
+  middle_name: order_by
+  native_address: order_by
+  native_place_id: order_by
+  phone: order_by
+  updated_at: order_by
+}
+
+# response of any mutation on the table "users"
 type users_mutation_response {
-  """number of affected rows by the mutation"""
+  # number of affected rows by the mutation
   affected_rows: Int!
 
-  """data of the affected rows by the mutation"""
+  # data of the affected rows by the mutation
   returning: [users!]!
 }
 
-"""
-input type for inserting object relation for remote table "users"
-"""
+# input type for inserting object relation for remote table "users"
 input users_obj_rel_insert_input {
   data: users_insert_input!
   on_conflict: users_on_conflict
 }
 
-"""
-on conflict condition type for table "users"
-"""
+# on conflict condition type for table "users"
 input users_on_conflict {
-  """action when conflict occurs (deprecated)"""
-  action: conflict_action
   constraint: users_constraint!
-  update_columns: [users_update_column!]
+  update_columns: [users_update_column!]!
 }
 
-"""
-ordering options when selecting data from "users"
-"""
+# ordering options when selecting data from "users"
 input users_order_by {
-  approved_user: users_order_by
-  approved_user_id: order_by
+  approved_by_user_id: order_by
+  birth_date: order_by
+  birth_time: order_by
+  blood_group: order_by
+  company_business_name: order_by
+  created_at: order_by
+  current_address: order_by
+  current_place_id: order_by
+  father_in_law_name: order_by
+  father_in_law_place_id: order_by
   first_name: order_by
+  gender: order_by
   id: order_by
   image: order_by
   is_approved: order_by
   is_registration_completed: order_by
   last_name: order_by
+  marital_status: order_by
+  middle_name: order_by
+  native_address: order_by
+  native_place_id: order_by
   phone: order_by
+  updated_at: order_by
+  user_educations_aggregate: user_educations_aggregate_order_by
+  user_families_aggregate: user_families_aggregate_order_by
+  user_occupations_aggregate: user_occupations_aggregate_order_by
 }
 
-"""
-select columns of table "users"
-"""
+# select columns of table "users"
 enum users_select_column {
-  """column name"""
-  approved_user_id
+  # column name
+  approved_by_user_id
 
-  """column name"""
+  # column name
+  birth_date
+
+  # column name
+  birth_time
+
+  # column name
+  blood_group
+
+  # column name
+  company_business_name
+
+  # column name
+  created_at
+
+  # column name
+  current_address
+
+  # column name
+  current_place_id
+
+  # column name
+  father_in_law_name
+
+  # column name
+  father_in_law_place_id
+
+  # column name
   first_name
 
-  """column name"""
+  # column name
+  gender
+
+  # column name
   id
 
-  """column name"""
+  # column name
   image
 
-  """column name"""
+  # column name
   is_approved
 
-  """column name"""
+  # column name
   is_registration_completed
 
-  """column name"""
+  # column name
   last_name
 
-  """column name"""
+  # column name
+  marital_status
+
+  # column name
+  middle_name
+
+  # column name
+  native_address
+
+  # column name
+  native_place_id
+
+  # column name
   phone
+
+  # column name
+  updated_at
 }
 
-"""
-input type for updating data in table "users"
-"""
+# input type for updating data in table "users"
 input users_set_input {
-  approved_user_id: String
+  approved_by_user_id: String
+  birth_date: date
+  birth_time: timetz
+  blood_group: Int
+  company_business_name: String
+  created_at: timestamptz
+  current_address: String
+  current_place_id: String
+  father_in_law_name: String
+  father_in_law_place_id: String
   first_name: String
+  gender: Int
   id: String
   image: String
   is_approved: Boolean
   is_registration_completed: Boolean
   last_name: String
+  marital_status: Int
+  middle_name: String
+  native_address: String
+  native_place_id: String
   phone: String
+  updated_at: timestamptz
 }
 
-"""
-update columns of table "users"
-"""
-enum users_update_column {
-  """column name"""
-  approved_user_id
+# aggregate stddev on columns
+type users_stddev_fields {
+  blood_group: Float
+  gender: Float
+  marital_status: Float
+}
 
-  """column name"""
+# order by stddev() on columns of table "users"
+input users_stddev_order_by {
+  blood_group: order_by
+  gender: order_by
+  marital_status: order_by
+}
+
+# aggregate stddev_pop on columns
+type users_stddev_pop_fields {
+  blood_group: Float
+  gender: Float
+  marital_status: Float
+}
+
+# order by stddev_pop() on columns of table "users"
+input users_stddev_pop_order_by {
+  blood_group: order_by
+  gender: order_by
+  marital_status: order_by
+}
+
+# aggregate stddev_samp on columns
+type users_stddev_samp_fields {
+  blood_group: Float
+  gender: Float
+  marital_status: Float
+}
+
+# order by stddev_samp() on columns of table "users"
+input users_stddev_samp_order_by {
+  blood_group: order_by
+  gender: order_by
+  marital_status: order_by
+}
+
+# aggregate sum on columns
+type users_sum_fields {
+  blood_group: Int
+  gender: Int
+  marital_status: Int
+}
+
+# order by sum() on columns of table "users"
+input users_sum_order_by {
+  blood_group: order_by
+  gender: order_by
+  marital_status: order_by
+}
+
+# update columns of table "users"
+enum users_update_column {
+  # column name
+  approved_by_user_id
+
+  # column name
+  birth_date
+
+  # column name
+  birth_time
+
+  # column name
+  blood_group
+
+  # column name
+  company_business_name
+
+  # column name
+  created_at
+
+  # column name
+  current_address
+
+  # column name
+  current_place_id
+
+  # column name
+  father_in_law_name
+
+  # column name
+  father_in_law_place_id
+
+  # column name
   first_name
 
-  """column name"""
+  # column name
+  gender
+
+  # column name
   id
 
-  """column name"""
+  # column name
   image
 
-  """column name"""
+  # column name
   is_approved
 
-  """column name"""
+  # column name
   is_registration_completed
 
-  """column name"""
+  # column name
   last_name
 
-  """column name"""
+  # column name
+  marital_status
+
+  # column name
+  middle_name
+
+  # column name
+  native_address
+
+  # column name
+  native_place_id
+
+  # column name
   phone
+
+  # column name
+  updated_at
+}
+
+# aggregate var_pop on columns
+type users_var_pop_fields {
+  blood_group: Float
+  gender: Float
+  marital_status: Float
+}
+
+# order by var_pop() on columns of table "users"
+input users_var_pop_order_by {
+  blood_group: order_by
+  gender: order_by
+  marital_status: order_by
+}
+
+# aggregate var_samp on columns
+type users_var_samp_fields {
+  blood_group: Float
+  gender: Float
+  marital_status: Float
+}
+
+# order by var_samp() on columns of table "users"
+input users_var_samp_order_by {
+  blood_group: order_by
+  gender: order_by
+  marital_status: order_by
+}
+
+# aggregate variance on columns
+type users_variance_fields {
+  blood_group: Float
+  gender: Float
+  marital_status: Float
+}
+
+# order by variance() on columns of table "users"
+input users_variance_order_by {
+  blood_group: order_by
+  gender: order_by
+  marital_status: order_by
 }
