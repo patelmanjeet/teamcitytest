@@ -1,0 +1,1506 @@
+schema {
+  query: query_root
+  mutation: mutation_root
+  subscription: subscription_root
+}
+
+"""
+expression to compare columns of type boolean. All fields are combined with logical 'AND'.
+"""
+input boolean_comparison_exp {
+  _eq: Boolean
+  _gt: Boolean
+  _gte: Boolean
+  _in: [Boolean]
+  _is_null: Boolean
+  _lt: Boolean
+  _lte: Boolean
+  _neq: Boolean
+  _nin: [Boolean]
+}
+
+"""conflict action"""
+enum conflict_action {
+  """ignore the insert on this row"""
+  ignore
+
+  """update the row with the given values"""
+  update
+}
+
+"""
+columns and relationships of "educations"
+"""
+type educations {
+  id: Int!
+  name: String!
+}
+
+"""
+aggregated selection of "educations"
+"""
+type educations_aggregate {
+  aggregate: educations_aggregate_fields
+  nodes: [educations!]!
+}
+
+"""
+aggregate fields of "educations"
+"""
+type educations_aggregate_fields {
+  avg: educations_avg_fields
+  count(columns: [educations_select_column!], distinct: Boolean): Int
+  max: educations_max_fields
+  min: educations_min_fields
+  stddev: educations_stddev_fields
+  stddev_pop: educations_stddev_pop_fields
+  stddev_samp: educations_stddev_samp_fields
+  sum: educations_sum_fields
+  var_pop: educations_var_pop_fields
+  var_samp: educations_var_samp_fields
+  variance: educations_variance_fields
+}
+
+"""
+input type for inserting array relation for remote table "educations"
+"""
+input educations_arr_rel_insert_input {
+  data: [educations_insert_input!]!
+  on_conflict: educations_on_conflict
+}
+
+"""aggregate avg on columns"""
+type educations_avg_fields {
+  id: Float
+}
+
+"""
+Boolean expression to filter rows from the table "educations". All fields are combined with a logical 'AND'.
+"""
+input educations_bool_exp {
+  _and: [educations_bool_exp]
+  _not: educations_bool_exp
+  _or: [educations_bool_exp]
+  id: integer_comparison_exp
+  name: text_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "educations"
+"""
+enum educations_constraint {
+  """unique or primary key constraint"""
+  educations_pkey
+}
+
+"""
+input type for incrementing integer columne in table "educations"
+"""
+input educations_inc_input {
+  id: Int
+}
+
+"""
+input type for inserting data into table "educations"
+"""
+input educations_insert_input {
+  id: Int
+  name: String
+}
+
+"""aggregate max on columns"""
+type educations_max_fields {
+  id: Int
+  name: String
+}
+
+"""aggregate min on columns"""
+type educations_min_fields {
+  id: Int
+  name: String
+}
+
+"""
+response of any mutation on the table "educations"
+"""
+type educations_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [educations!]!
+}
+
+"""
+input type for inserting object relation for remote table "educations"
+"""
+input educations_obj_rel_insert_input {
+  data: educations_insert_input!
+  on_conflict: educations_on_conflict
+}
+
+"""
+on conflict condition type for table "educations"
+"""
+input educations_on_conflict {
+  """action when conflict occurs (deprecated)"""
+  action: conflict_action
+  constraint: educations_constraint!
+  update_columns: [educations_update_column!]
+}
+
+"""
+ordering options when selecting data from "educations"
+"""
+input educations_order_by {
+  id: order_by
+  name: order_by
+}
+
+"""
+select columns of table "educations"
+"""
+enum educations_select_column {
+  """column name"""
+  id
+
+  """column name"""
+  name
+}
+
+"""
+input type for updating data in table "educations"
+"""
+input educations_set_input {
+  id: Int
+  name: String
+}
+
+"""aggregate stddev on columns"""
+type educations_stddev_fields {
+  id: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type educations_stddev_pop_fields {
+  id: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type educations_stddev_samp_fields {
+  id: Float
+}
+
+"""aggregate sum on columns"""
+type educations_sum_fields {
+  id: Int
+}
+
+"""
+update columns of table "educations"
+"""
+enum educations_update_column {
+  """column name"""
+  id
+
+  """column name"""
+  name
+}
+
+"""aggregate var_pop on columns"""
+type educations_var_pop_fields {
+  id: Float
+}
+
+"""aggregate var_samp on columns"""
+type educations_var_samp_fields {
+  id: Float
+}
+
+"""aggregate variance on columns"""
+type educations_variance_fields {
+  id: Float
+}
+
+"""
+expression to compare columns of type integer. All fields are combined with logical 'AND'.
+"""
+input integer_comparison_exp {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int]
+  _is_null: Boolean
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int]
+}
+
+scalar json
+
+"""
+expression to compare columns of type json. All fields are combined with logical 'AND'.
+"""
+input json_comparison_exp {
+  _eq: json
+  _gt: json
+  _gte: json
+  _in: [json]
+  _is_null: Boolean
+  _lt: json
+  _lte: json
+  _neq: json
+  _nin: [json]
+}
+
+"""mutation root"""
+type mutation_root {
+  """
+  delete data from the table: "educations"
+  """
+  delete_educations(
+    """filter the rows which have to be deleted"""
+    where: educations_bool_exp!
+  ): educations_mutation_response
+
+  """
+  delete data from the table: "posts"
+  """
+  delete_posts(
+    """filter the rows which have to be deleted"""
+    where: posts_bool_exp!
+  ): posts_mutation_response
+
+  """
+  delete data from the table: "user_approval_requests"
+  """
+  delete_user_approval_requests(
+    """filter the rows which have to be deleted"""
+    where: user_approval_requests_bool_exp!
+  ): user_approval_requests_mutation_response
+
+  """
+  delete data from the table: "users"
+  """
+  delete_users(
+    """filter the rows which have to be deleted"""
+    where: users_bool_exp!
+  ): users_mutation_response
+
+  """
+  insert data into the table: "educations"
+  """
+  insert_educations(
+    """the rows to be inserted"""
+    objects: [educations_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: educations_on_conflict
+  ): educations_mutation_response
+
+  """
+  insert data into the table: "posts"
+  """
+  insert_posts(
+    """the rows to be inserted"""
+    objects: [posts_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: posts_on_conflict
+  ): posts_mutation_response
+
+  """
+  insert data into the table: "user_approval_requests"
+  """
+  insert_user_approval_requests(
+    """the rows to be inserted"""
+    objects: [user_approval_requests_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: user_approval_requests_on_conflict
+  ): user_approval_requests_mutation_response
+
+  """
+  insert data into the table: "users"
+  """
+  insert_users(
+    """the rows to be inserted"""
+    objects: [users_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: users_on_conflict
+  ): users_mutation_response
+
+  """
+  update data of the table: "educations"
+  """
+  update_educations(
+    """
+    increments the integer columns with given value of the filtered values
+    """
+    _inc: educations_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: educations_set_input
+
+    """filter the rows which have to be updated"""
+    where: educations_bool_exp!
+  ): educations_mutation_response
+
+  """
+  update data of the table: "posts"
+  """
+  update_posts(
+    """
+    increments the integer columns with given value of the filtered values
+    """
+    _inc: posts_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: posts_set_input
+
+    """filter the rows which have to be updated"""
+    where: posts_bool_exp!
+  ): posts_mutation_response
+
+  """
+  update data of the table: "user_approval_requests"
+  """
+  update_user_approval_requests(
+    """sets the columns of the filtered rows to the given values"""
+    _set: user_approval_requests_set_input
+
+    """filter the rows which have to be updated"""
+    where: user_approval_requests_bool_exp!
+  ): user_approval_requests_mutation_response
+
+  """
+  update data of the table: "users"
+  """
+  update_users(
+    """sets the columns of the filtered rows to the given values"""
+    _set: users_set_input
+
+    """filter the rows which have to be updated"""
+    where: users_bool_exp!
+  ): users_mutation_response
+}
+
+"""column ordering options"""
+enum order_by {
+  """in the ascending order, nulls last"""
+  asc
+
+  """in the ascending order, nulls first"""
+  asc_nulls_first
+
+  """in the ascending order, nulls last"""
+  asc_nulls_last
+
+  """in the descending order, nulls first"""
+  desc
+
+  """in the descending order, nulls first"""
+  desc_nulls_first
+
+  """in the descending order, nulls last"""
+  desc_nulls_last
+}
+
+"""
+columns and relationships of "posts"
+"""
+type posts {
+  created_on: timestamptz!
+  id: Int!
+  images: json
+  text: String
+  updated_on: timestamptz!
+  url: json
+
+  """An object relationship"""
+  user: users!
+  user_id: String!
+}
+
+"""
+aggregated selection of "posts"
+"""
+type posts_aggregate {
+  aggregate: posts_aggregate_fields
+  nodes: [posts!]!
+}
+
+"""
+aggregate fields of "posts"
+"""
+type posts_aggregate_fields {
+  avg: posts_avg_fields
+  count(columns: [posts_select_column!], distinct: Boolean): Int
+  max: posts_max_fields
+  min: posts_min_fields
+  stddev: posts_stddev_fields
+  stddev_pop: posts_stddev_pop_fields
+  stddev_samp: posts_stddev_samp_fields
+  sum: posts_sum_fields
+  var_pop: posts_var_pop_fields
+  var_samp: posts_var_samp_fields
+  variance: posts_variance_fields
+}
+
+"""
+input type for inserting array relation for remote table "posts"
+"""
+input posts_arr_rel_insert_input {
+  data: [posts_insert_input!]!
+  on_conflict: posts_on_conflict
+}
+
+"""aggregate avg on columns"""
+type posts_avg_fields {
+  id: Float
+}
+
+"""
+Boolean expression to filter rows from the table "posts". All fields are combined with a logical 'AND'.
+"""
+input posts_bool_exp {
+  _and: [posts_bool_exp]
+  _not: posts_bool_exp
+  _or: [posts_bool_exp]
+  created_on: timestamptz_comparison_exp
+  id: integer_comparison_exp
+  images: json_comparison_exp
+  text: text_comparison_exp
+  updated_on: timestamptz_comparison_exp
+  url: json_comparison_exp
+  user: users_bool_exp
+  user_id: text_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "posts"
+"""
+enum posts_constraint {
+  """unique or primary key constraint"""
+  posts_pkey
+}
+
+"""
+input type for incrementing integer columne in table "posts"
+"""
+input posts_inc_input {
+  id: Int
+}
+
+"""
+input type for inserting data into table "posts"
+"""
+input posts_insert_input {
+  created_on: timestamptz
+  id: Int
+  images: json
+  text: String
+  updated_on: timestamptz
+  url: json
+  user: users_obj_rel_insert_input
+  user_id: String
+}
+
+"""aggregate max on columns"""
+type posts_max_fields {
+  created_on: timestamptz
+  id: Int
+  text: String
+  updated_on: timestamptz
+  user_id: String
+}
+
+"""aggregate min on columns"""
+type posts_min_fields {
+  created_on: timestamptz
+  id: Int
+  text: String
+  updated_on: timestamptz
+  user_id: String
+}
+
+"""
+response of any mutation on the table "posts"
+"""
+type posts_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [posts!]!
+}
+
+"""
+input type for inserting object relation for remote table "posts"
+"""
+input posts_obj_rel_insert_input {
+  data: posts_insert_input!
+  on_conflict: posts_on_conflict
+}
+
+"""
+on conflict condition type for table "posts"
+"""
+input posts_on_conflict {
+  """action when conflict occurs (deprecated)"""
+  action: conflict_action
+  constraint: posts_constraint!
+  update_columns: [posts_update_column!]
+}
+
+"""
+ordering options when selecting data from "posts"
+"""
+input posts_order_by {
+  created_on: order_by
+  id: order_by
+  images: order_by
+  text: order_by
+  updated_on: order_by
+  url: order_by
+  user: users_order_by
+  user_id: order_by
+}
+
+"""
+select columns of table "posts"
+"""
+enum posts_select_column {
+  """column name"""
+  created_on
+
+  """column name"""
+  id
+
+  """column name"""
+  images
+
+  """column name"""
+  text
+
+  """column name"""
+  updated_on
+
+  """column name"""
+  url
+
+  """column name"""
+  user_id
+}
+
+"""
+input type for updating data in table "posts"
+"""
+input posts_set_input {
+  created_on: timestamptz
+  id: Int
+  images: json
+  text: String
+  updated_on: timestamptz
+  url: json
+  user_id: String
+}
+
+"""aggregate stddev on columns"""
+type posts_stddev_fields {
+  id: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type posts_stddev_pop_fields {
+  id: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type posts_stddev_samp_fields {
+  id: Float
+}
+
+"""aggregate sum on columns"""
+type posts_sum_fields {
+  id: Int
+}
+
+"""
+update columns of table "posts"
+"""
+enum posts_update_column {
+  """column name"""
+  created_on
+
+  """column name"""
+  id
+
+  """column name"""
+  images
+
+  """column name"""
+  text
+
+  """column name"""
+  updated_on
+
+  """column name"""
+  url
+
+  """column name"""
+  user_id
+}
+
+"""aggregate var_pop on columns"""
+type posts_var_pop_fields {
+  id: Float
+}
+
+"""aggregate var_samp on columns"""
+type posts_var_samp_fields {
+  id: Float
+}
+
+"""aggregate variance on columns"""
+type posts_variance_fields {
+  id: Float
+}
+
+"""query root"""
+type query_root {
+  """
+  fetch data from the table: "educations"
+  """
+  educations(
+    """distinct select on columns"""
+    distinct_on: [educations_select_column!]
+
+    """limit the nuber of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [educations_order_by!]
+
+    """filter the rows returned"""
+    where: educations_bool_exp
+  ): [educations!]!
+
+  """
+  fetch aggregated fields from the table: "educations"
+  """
+  educations_aggregate(
+    """distinct select on columns"""
+    distinct_on: [educations_select_column!]
+
+    """limit the nuber of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [educations_order_by!]
+
+    """filter the rows returned"""
+    where: educations_bool_exp
+  ): educations_aggregate!
+
+  """fetch data from the table: "educations" using primary key columns"""
+  educations_by_pk(id: Int!): educations
+
+  """
+  fetch data from the table: "posts"
+  """
+  posts(
+    """distinct select on columns"""
+    distinct_on: [posts_select_column!]
+
+    """limit the nuber of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [posts_order_by!]
+
+    """filter the rows returned"""
+    where: posts_bool_exp
+  ): [posts!]!
+
+  """
+  fetch aggregated fields from the table: "posts"
+  """
+  posts_aggregate(
+    """distinct select on columns"""
+    distinct_on: [posts_select_column!]
+
+    """limit the nuber of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [posts_order_by!]
+
+    """filter the rows returned"""
+    where: posts_bool_exp
+  ): posts_aggregate!
+
+  """fetch data from the table: "posts" using primary key columns"""
+  posts_by_pk(id: Int!): posts
+
+  """
+  fetch data from the table: "user_approval_requests"
+  """
+  user_approval_requests(
+    """distinct select on columns"""
+    distinct_on: [user_approval_requests_select_column!]
+
+    """limit the nuber of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [user_approval_requests_order_by!]
+
+    """filter the rows returned"""
+    where: user_approval_requests_bool_exp
+  ): [user_approval_requests!]!
+
+  """
+  fetch aggregated fields from the table: "user_approval_requests"
+  """
+  user_approval_requests_aggregate(
+    """distinct select on columns"""
+    distinct_on: [user_approval_requests_select_column!]
+
+    """limit the nuber of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [user_approval_requests_order_by!]
+
+    """filter the rows returned"""
+    where: user_approval_requests_bool_exp
+  ): user_approval_requests_aggregate!
+
+  """
+  fetch data from the table: "user_approval_requests" using primary key columns
+  """
+  user_approval_requests_by_pk(approved_user_id: String!, user_id: String!): user_approval_requests
+
+  """
+  fetch data from the table: "users"
+  """
+  users(
+    """distinct select on columns"""
+    distinct_on: [users_select_column!]
+
+    """limit the nuber of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_order_by!]
+
+    """filter the rows returned"""
+    where: users_bool_exp
+  ): [users!]!
+
+  """
+  fetch aggregated fields from the table: "users"
+  """
+  users_aggregate(
+    """distinct select on columns"""
+    distinct_on: [users_select_column!]
+
+    """limit the nuber of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_order_by!]
+
+    """filter the rows returned"""
+    where: users_bool_exp
+  ): users_aggregate!
+
+  """fetch data from the table: "users" using primary key columns"""
+  users_by_pk(id: String!): users
+}
+
+"""subscription root"""
+type subscription_root {
+  """
+  fetch data from the table: "educations"
+  """
+  educations(
+    """distinct select on columns"""
+    distinct_on: [educations_select_column!]
+
+    """limit the nuber of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [educations_order_by!]
+
+    """filter the rows returned"""
+    where: educations_bool_exp
+  ): [educations!]!
+
+  """
+  fetch aggregated fields from the table: "educations"
+  """
+  educations_aggregate(
+    """distinct select on columns"""
+    distinct_on: [educations_select_column!]
+
+    """limit the nuber of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [educations_order_by!]
+
+    """filter the rows returned"""
+    where: educations_bool_exp
+  ): educations_aggregate!
+
+  """fetch data from the table: "educations" using primary key columns"""
+  educations_by_pk(id: Int!): educations
+
+  """
+  fetch data from the table: "posts"
+  """
+  posts(
+    """distinct select on columns"""
+    distinct_on: [posts_select_column!]
+
+    """limit the nuber of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [posts_order_by!]
+
+    """filter the rows returned"""
+    where: posts_bool_exp
+  ): [posts!]!
+
+  """
+  fetch aggregated fields from the table: "posts"
+  """
+  posts_aggregate(
+    """distinct select on columns"""
+    distinct_on: [posts_select_column!]
+
+    """limit the nuber of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [posts_order_by!]
+
+    """filter the rows returned"""
+    where: posts_bool_exp
+  ): posts_aggregate!
+
+  """fetch data from the table: "posts" using primary key columns"""
+  posts_by_pk(id: Int!): posts
+
+  """
+  fetch data from the table: "user_approval_requests"
+  """
+  user_approval_requests(
+    """distinct select on columns"""
+    distinct_on: [user_approval_requests_select_column!]
+
+    """limit the nuber of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [user_approval_requests_order_by!]
+
+    """filter the rows returned"""
+    where: user_approval_requests_bool_exp
+  ): [user_approval_requests!]!
+
+  """
+  fetch aggregated fields from the table: "user_approval_requests"
+  """
+  user_approval_requests_aggregate(
+    """distinct select on columns"""
+    distinct_on: [user_approval_requests_select_column!]
+
+    """limit the nuber of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [user_approval_requests_order_by!]
+
+    """filter the rows returned"""
+    where: user_approval_requests_bool_exp
+  ): user_approval_requests_aggregate!
+
+  """
+  fetch data from the table: "user_approval_requests" using primary key columns
+  """
+  user_approval_requests_by_pk(approved_user_id: String!, user_id: String!): user_approval_requests
+
+  """
+  fetch data from the table: "users"
+  """
+  users(
+    """distinct select on columns"""
+    distinct_on: [users_select_column!]
+
+    """limit the nuber of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_order_by!]
+
+    """filter the rows returned"""
+    where: users_bool_exp
+  ): [users!]!
+
+  """
+  fetch aggregated fields from the table: "users"
+  """
+  users_aggregate(
+    """distinct select on columns"""
+    distinct_on: [users_select_column!]
+
+    """limit the nuber of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_order_by!]
+
+    """filter the rows returned"""
+    where: users_bool_exp
+  ): users_aggregate!
+
+  """fetch data from the table: "users" using primary key columns"""
+  users_by_pk(id: String!): users
+}
+
+"""
+expression to compare columns of type text. All fields are combined with logical 'AND'.
+"""
+input text_comparison_exp {
+  _eq: String
+  _gt: String
+  _gte: String
+  _ilike: String
+  _in: [String]
+  _is_null: Boolean
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+  _nilike: String
+  _nin: [String]
+  _nlike: String
+  _nsimilar: String
+  _similar: String
+}
+
+scalar timestamptz
+
+"""
+expression to compare columns of type timestamptz. All fields are combined with logical 'AND'.
+"""
+input timestamptz_comparison_exp {
+  _eq: timestamptz
+  _gt: timestamptz
+  _gte: timestamptz
+  _in: [timestamptz]
+  _is_null: Boolean
+  _lt: timestamptz
+  _lte: timestamptz
+  _neq: timestamptz
+  _nin: [timestamptz]
+}
+
+"""
+columns and relationships of "user_approval_requests"
+"""
+type user_approval_requests {
+  """An object relationship"""
+  approved_user: users!
+  approved_user_id: String!
+
+  """An object relationship"""
+  user: users!
+  user_id: String!
+}
+
+"""
+aggregated selection of "user_approval_requests"
+"""
+type user_approval_requests_aggregate {
+  aggregate: user_approval_requests_aggregate_fields
+  nodes: [user_approval_requests!]!
+}
+
+"""
+aggregate fields of "user_approval_requests"
+"""
+type user_approval_requests_aggregate_fields {
+  count(columns: [user_approval_requests_select_column!], distinct: Boolean): Int
+  max: user_approval_requests_max_fields
+  min: user_approval_requests_min_fields
+}
+
+"""
+input type for inserting array relation for remote table "user_approval_requests"
+"""
+input user_approval_requests_arr_rel_insert_input {
+  data: [user_approval_requests_insert_input!]!
+  on_conflict: user_approval_requests_on_conflict
+}
+
+"""
+Boolean expression to filter rows from the table "user_approval_requests". All fields are combined with a logical 'AND'.
+"""
+input user_approval_requests_bool_exp {
+  _and: [user_approval_requests_bool_exp]
+  _not: user_approval_requests_bool_exp
+  _or: [user_approval_requests_bool_exp]
+  approved_user: users_bool_exp
+  approved_user_id: text_comparison_exp
+  user: users_bool_exp
+  user_id: text_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "user_approval_requests"
+"""
+enum user_approval_requests_constraint {
+  """unique or primary key constraint"""
+  user_approval_requests_pkey
+}
+
+"""
+input type for inserting data into table "user_approval_requests"
+"""
+input user_approval_requests_insert_input {
+  approved_user: users_obj_rel_insert_input
+  approved_user_id: String
+  user: users_obj_rel_insert_input
+  user_id: String
+}
+
+"""aggregate max on columns"""
+type user_approval_requests_max_fields {
+  approved_user_id: String
+  user_id: String
+}
+
+"""aggregate min on columns"""
+type user_approval_requests_min_fields {
+  approved_user_id: String
+  user_id: String
+}
+
+"""
+response of any mutation on the table "user_approval_requests"
+"""
+type user_approval_requests_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [user_approval_requests!]!
+}
+
+"""
+input type for inserting object relation for remote table "user_approval_requests"
+"""
+input user_approval_requests_obj_rel_insert_input {
+  data: user_approval_requests_insert_input!
+  on_conflict: user_approval_requests_on_conflict
+}
+
+"""
+on conflict condition type for table "user_approval_requests"
+"""
+input user_approval_requests_on_conflict {
+  """action when conflict occurs (deprecated)"""
+  action: conflict_action
+  constraint: user_approval_requests_constraint!
+  update_columns: [user_approval_requests_update_column!]
+}
+
+"""
+ordering options when selecting data from "user_approval_requests"
+"""
+input user_approval_requests_order_by {
+  approved_user: users_order_by
+  approved_user_id: order_by
+  user: users_order_by
+  user_id: order_by
+}
+
+"""
+select columns of table "user_approval_requests"
+"""
+enum user_approval_requests_select_column {
+  """column name"""
+  approved_user_id
+
+  """column name"""
+  user_id
+}
+
+"""
+input type for updating data in table "user_approval_requests"
+"""
+input user_approval_requests_set_input {
+  approved_user_id: String
+  user_id: String
+}
+
+"""
+update columns of table "user_approval_requests"
+"""
+enum user_approval_requests_update_column {
+  """column name"""
+  approved_user_id
+
+  """column name"""
+  user_id
+}
+
+"""
+columns and relationships of "users"
+"""
+type users {
+  """An object relationship"""
+  approved_user: users
+  approved_user_id: String
+  first_name: String
+  id: String!
+  image: String
+  is_approved: Boolean!
+  is_registration_completed: Boolean!
+  last_name: String
+  phone: String!
+
+  """An array relationship"""
+  posts(
+    """distinct select on columns"""
+    distinct_on: [posts_select_column!]
+
+    """limit the nuber of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [posts_order_by!]
+
+    """filter the rows returned"""
+    where: posts_bool_exp
+  ): [posts!]!
+
+  """An aggregated array relationship"""
+  posts_aggregate(
+    """distinct select on columns"""
+    distinct_on: [posts_select_column!]
+
+    """limit the nuber of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [posts_order_by!]
+
+    """filter the rows returned"""
+    where: posts_bool_exp
+  ): posts_aggregate!
+
+  """An array relationship"""
+  user_approval_requests(
+    """distinct select on columns"""
+    distinct_on: [user_approval_requests_select_column!]
+
+    """limit the nuber of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [user_approval_requests_order_by!]
+
+    """filter the rows returned"""
+    where: user_approval_requests_bool_exp
+  ): [user_approval_requests!]!
+
+  """An aggregated array relationship"""
+  user_approval_requests_aggregate(
+    """distinct select on columns"""
+    distinct_on: [user_approval_requests_select_column!]
+
+    """limit the nuber of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [user_approval_requests_order_by!]
+
+    """filter the rows returned"""
+    where: user_approval_requests_bool_exp
+  ): user_approval_requests_aggregate!
+}
+
+"""
+aggregated selection of "users"
+"""
+type users_aggregate {
+  aggregate: users_aggregate_fields
+  nodes: [users!]!
+}
+
+"""
+aggregate fields of "users"
+"""
+type users_aggregate_fields {
+  count(columns: [users_select_column!], distinct: Boolean): Int
+  max: users_max_fields
+  min: users_min_fields
+}
+
+"""
+input type for inserting array relation for remote table "users"
+"""
+input users_arr_rel_insert_input {
+  data: [users_insert_input!]!
+  on_conflict: users_on_conflict
+}
+
+"""
+Boolean expression to filter rows from the table "users". All fields are combined with a logical 'AND'.
+"""
+input users_bool_exp {
+  _and: [users_bool_exp]
+  _not: users_bool_exp
+  _or: [users_bool_exp]
+  approved_user: users_bool_exp
+  approved_user_id: text_comparison_exp
+  first_name: text_comparison_exp
+  id: text_comparison_exp
+  image: text_comparison_exp
+  is_approved: boolean_comparison_exp
+  is_registration_completed: boolean_comparison_exp
+  last_name: text_comparison_exp
+  phone: text_comparison_exp
+  posts: posts_bool_exp
+  user_approval_requests: user_approval_requests_bool_exp
+}
+
+"""
+unique or primary key constraints on table "users"
+"""
+enum users_constraint {
+  """unique or primary key constraint"""
+  users_pkey
+}
+
+"""
+input type for inserting data into table "users"
+"""
+input users_insert_input {
+  approved_user: users_obj_rel_insert_input
+  approved_user_id: String
+  first_name: String
+  id: String
+  image: String
+  is_approved: Boolean
+  is_registration_completed: Boolean
+  last_name: String
+  phone: String
+  posts: posts_arr_rel_insert_input
+  user_approval_requests: user_approval_requests_arr_rel_insert_input
+}
+
+"""aggregate max on columns"""
+type users_max_fields {
+  approved_user_id: String
+  first_name: String
+  id: String
+  image: String
+  last_name: String
+  phone: String
+}
+
+"""aggregate min on columns"""
+type users_min_fields {
+  approved_user_id: String
+  first_name: String
+  id: String
+  image: String
+  last_name: String
+  phone: String
+}
+
+"""
+response of any mutation on the table "users"
+"""
+type users_mutation_response {
+  """number of affected rows by the mutation"""
+  affected_rows: Int!
+
+  """data of the affected rows by the mutation"""
+  returning: [users!]!
+}
+
+"""
+input type for inserting object relation for remote table "users"
+"""
+input users_obj_rel_insert_input {
+  data: users_insert_input!
+  on_conflict: users_on_conflict
+}
+
+"""
+on conflict condition type for table "users"
+"""
+input users_on_conflict {
+  """action when conflict occurs (deprecated)"""
+  action: conflict_action
+  constraint: users_constraint!
+  update_columns: [users_update_column!]
+}
+
+"""
+ordering options when selecting data from "users"
+"""
+input users_order_by {
+  approved_user: users_order_by
+  approved_user_id: order_by
+  first_name: order_by
+  id: order_by
+  image: order_by
+  is_approved: order_by
+  is_registration_completed: order_by
+  last_name: order_by
+  phone: order_by
+}
+
+"""
+select columns of table "users"
+"""
+enum users_select_column {
+  """column name"""
+  approved_user_id
+
+  """column name"""
+  first_name
+
+  """column name"""
+  id
+
+  """column name"""
+  image
+
+  """column name"""
+  is_approved
+
+  """column name"""
+  is_registration_completed
+
+  """column name"""
+  last_name
+
+  """column name"""
+  phone
+}
+
+"""
+input type for updating data in table "users"
+"""
+input users_set_input {
+  approved_user_id: String
+  first_name: String
+  id: String
+  image: String
+  is_approved: Boolean
+  is_registration_completed: Boolean
+  last_name: String
+  phone: String
+}
+
+"""
+update columns of table "users"
+"""
+enum users_update_column {
+  """column name"""
+  approved_user_id
+
+  """column name"""
+  first_name
+
+  """column name"""
+  id
+
+  """column name"""
+  image
+
+  """column name"""
+  is_approved
+
+  """column name"""
+  is_registration_completed
+
+  """column name"""
+  last_name
+
+  """column name"""
+  phone
+}
